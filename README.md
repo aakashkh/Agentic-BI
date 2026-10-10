@@ -36,6 +36,7 @@ Install **Microsoft Power BI Modeling MCP Server via Plugin** (in Plugins Manage
 
 ### Step 4: Practice Prompt Playbooks & CI/CD Review Gates
 Use pre-tested prompt templates to generate DAX measures, document TMDL schema, and test Git PR gates:
+* ⚡ **MCP Prompting Best Practices & Playbook**: [`05-Prompts-and-Workflows/MCP-Prompting-Best-Practices.md`](05-Prompts-and-Workflows/MCP-Prompting-Best-Practices.md)
 * 🧮 **DAX Generation Playbook**: [`05-Prompts-and-Workflows/DAX-Generation-Playbook.md`](05-Prompts-and-Workflows/DAX-Generation-Playbook.md)
 * 📝 **Auto-Documentation Playbook**: [`05-Prompts-and-Workflows/Documentation-Playbook.md`](05-Prompts-and-Workflows/Documentation-Playbook.md)
 * 🌉 **Fabric Data Agent Readiness Bridge**: [`05-Prompts-and-Workflows/Fabric-Data-Agent-Bridge.md`](05-Prompts-and-Workflows/Fabric-Data-Agent-Bridge.md)
@@ -94,6 +95,7 @@ Agentic BI/
 │   ├── mcp-server-config.json          # Production JSON config snippet for @microsoft/powerbi-modeling-mcp
 │   └── mock-mcp-simulator.py           # Python simulation script for offline testing
 └── 05-Prompts-and-Workflows/           # Prompt Engineering Playbooks & CI Gates
+    ├── MCP-Prompting-Best-Practices.md # 4 Golden Rules & 5 tested MCP prompt templates
     ├── DAX-Generation-Playbook.md      # Natural language -> DAX measure templates
     ├── Documentation-Playbook.md       # Auto-documenting TMDL tables & columns
     ├── Fabric-Data-Agent-Bridge.md     # Metadata readiness checklist for Fabric Data Agents
