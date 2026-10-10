@@ -1,0 +1,67 @@
+table DimDate
+	lineageTag: 8c84e4ab-7954-4a69-adde-78cd4e59a113
+	dataCategory: Time
+
+	column Date
+		dataType: dateTime
+		isKey
+		formatString: yyyy-mm-dd
+		lineageTag: a7431690-bc23-455f-bd67-ba7e47fe6454
+		summarizeBy: none
+		sourceColumn: Date
+
+		annotation UnderlyingDateTimeDataType = Date
+
+		annotation SummarizationSetBy = Automatic
+
+	column Year
+		dataType: int64
+		lineageTag: 34f66d26-8b34-4399-9d2e-fc6a56c6958e
+		sourceColumn: Year
+
+	column Quarter
+		dataType: string
+		lineageTag: 7c933fe4-d252-4d69-8d4a-aa52518423fc
+		sourceColumn: Quarter
+
+	column MonthName
+		dataType: string
+		lineageTag: 0498a19b-a812-4b9b-80a6-49438a6c1d08
+		sourceColumn: MonthName
+
+	column MonthNumber
+		dataType: int64
+		lineageTag: b60b7e72-898e-4efc-9f6f-1e9d13c76bda
+		sourceColumn: MonthNumber
+
+	column DayOfWeek
+		dataType: string
+		lineageTag: 41058641-1ee4-49cf-aa71-061d8b98c462
+		summarizeBy: none
+		sourceColumn: DayOfWeek
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Calendar month label in sortable YYYY-MM format, derived from Date.
+	column 'Year Month' = FORMAT('DimDate'[Date], "yyyy-MM")
+		dataType: string
+		lineageTag: 06cb2453-94ce-43bd-a91d-3b7f302290b2
+		summarizeBy: none
+
+	/// First calendar day of the month for the row's Date.
+	column 'Month Start Date' = DATE(YEAR('DimDate'[Date]), MONTH('DimDate'[Date]), 1)
+		dataType: dateTime
+		formatString: yyyy-mm-dd
+		lineageTag: 686f388c-b3f4-46a8-b6dc-8b3ed9912848
+		summarizeBy: none
+
+	partition DimDate-Partition = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents("C:\Users\aakashkhandelwal\Downloads\Learning\Agentic BI\04-MCP-Setup\RetailSales-MCP-Demo\Data\DimDate.csv"), [Delimiter=",", Columns=6, Encoding=65001, QuoteStyle=QuoteStyle.None]),
+				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"Date", type date}, {"Year", Int64.Type}, {"Quarter", type text}, {"MonthName", type text}, {"MonthNumber", Int64.Type}, {"DayOfWeek", type text}})
+				in
+				    #"Changed Type"
+

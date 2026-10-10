@@ -1,0 +1,20 @@
+table SalesMetrics
+	lineageTag: cbf45473-68ce-4da9-9ec8-c2c1b3d5e8fc
+
+	column _MetricKey
+		dataType: string
+		isHidden
+		lineageTag: ed1d9711-4321-448b-8ba6-0ea763c4a846
+		summarizeBy: none
+		sourceColumn: _MetricKey
+
+		annotation SummarizationSetBy = Automatic
+
+	partition SalesMetrics-Partition = m
+		mode: import
+		source =
+				let
+				    Source = #table({"_MetricKey"}, {{1}})
+				in
+				    Source
+

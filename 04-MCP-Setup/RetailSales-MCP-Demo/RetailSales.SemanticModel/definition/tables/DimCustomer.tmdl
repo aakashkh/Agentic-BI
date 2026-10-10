@@ -1,0 +1,33 @@
+table DimCustomer
+	lineageTag: fbce14b1-5da3-41a9-a162-e78080d2d54b
+
+	column CustomerID
+		dataType: string
+		lineageTag: 484bc7e0-fc07-4cec-a87c-9ce25424ae95
+		sourceColumn: CustomerID
+
+	column CustomerName
+		dataType: string
+		lineageTag: 184e74e1-a4a3-4c31-9369-e6f794d6ccdf
+		sourceColumn: CustomerName
+
+	column CustomerSegment
+		dataType: string
+		lineageTag: 66fa08ad-a053-4919-9586-cfc90648cb2f
+		sourceColumn: CustomerSegment
+
+	column Country
+		dataType: string
+		lineageTag: dad0dde4-0c85-40f0-9331-db6532f52c49
+		sourceColumn: Country
+
+	partition DimCustomer-Partition = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents("C:\Users\aakashkhandelwal\Downloads\Learning\Agentic BI\04-MCP-Setup\RetailSales-MCP-Demo\Data\DimCustomer.csv"), [Delimiter=",", Columns=4, Encoding=65001, QuoteStyle=QuoteStyle.None]),
+				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"CustomerID", type text}, {"CustomerName", type text}, {"CustomerSegment", type text}, {"Country", type text}})
+				in
+				    #"Changed Type"
+

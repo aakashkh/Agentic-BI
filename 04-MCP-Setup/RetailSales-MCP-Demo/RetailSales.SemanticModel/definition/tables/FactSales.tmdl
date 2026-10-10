@@ -1,0 +1,89 @@
+table FactSales
+	lineageTag: e09f3dfe-fc23-47a2-ab21-adae09a8e3ee
+
+	/// Sum of sales amounts across the current filter context.
+	measure 'Sales Amount' = SUM('FactSales'[SalesAmount])
+		formatString: $#,##0.00
+		lineageTag: 293e97f1-9d79-4c6d-9d44-8ef841d2e5c5
+
+	/// Sum of quantities sold across the current filter context.
+	measure 'Units Sold' = SUM('FactSales'[Quantity])
+		formatString: #,##0
+		lineageTag: af649557-e558-4c50-ad50-ee07cf1c55f1
+
+	/// Distinct count of transactions in the current filter context.
+	measure 'Transaction Count' = DISTINCTCOUNT('FactSales'[TransactionID])
+		formatString: #,##0
+		lineageTag: 75a05e69-498f-4bd6-b575-21dfa7854dff
+
+	column TransactionID
+		dataType: string
+		lineageTag: 0d720184-de06-4e2a-8d8f-67aa47501206
+		sourceColumn: TransactionID
+
+	column OrderDate
+		dataType: dateTime
+		formatString: yyyy-mm-dd
+		lineageTag: 3762d1ad-e80b-4df1-b468-6152e42801b7
+		summarizeBy: none
+		sourceColumn: OrderDate
+
+		annotation UnderlyingDateTimeDataType = Date
+
+		annotation SummarizationSetBy = Automatic
+
+	column CustomerID
+		dataType: string
+		lineageTag: d6eecfc0-f92e-45d5-ac3e-76f9ed5695d6
+		sourceColumn: CustomerID
+
+	column ProductID
+		dataType: string
+		lineageTag: 4c7380c7-a08b-430c-b11a-ff3fbf950996
+		sourceColumn: ProductID
+
+	column Quantity
+		dataType: int64
+		isHidden
+		formatString: #,0
+		lineageTag: abbf3c45-231a-4cdf-9e16-93b14fed753c
+		sourceColumn: Quantity
+
+	column UnitPrice
+		dataType: double
+		formatString: $#,0.00
+		lineageTag: b8763768-f8d1-4d0a-85e5-706cdc166eae
+		summarizeBy: sum
+		sourceColumn: UnitPrice
+
+		annotation SummarizationSetBy = Automatic
+
+	column DiscountAmount
+		dataType: double
+		formatString: $#,0.00
+		lineageTag: a4a17937-388f-43d7-94fb-4b779b1bd661
+		summarizeBy: sum
+		sourceColumn: DiscountAmount
+
+		annotation SummarizationSetBy = Automatic
+
+	column SalesAmount
+		dataType: double
+		isHidden
+		formatString: $#,0.00
+		lineageTag: dd47e3a0-dbe1-449f-9fc8-05ea9fccc008
+		summarizeBy: sum
+		sourceColumn: SalesAmount
+
+		annotation SummarizationSetBy = Automatic
+
+	partition FactSales-Partition = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents("C:\Users\aakashkhandelwal\Downloads\Learning\Agentic BI\04-MCP-Setup\RetailSales-MCP-Demo\Data\FactSales.csv"), [Delimiter=",", Columns=8, Encoding=65001, QuoteStyle=QuoteStyle.None]),
+				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"TransactionID", type text}, {"OrderDate", type date}, {"CustomerID", type text}, {"ProductID", type text}, {"Quantity", Int64.Type}, {"UnitPrice", type number}, {"DiscountAmount", type number}, {"SalesAmount", type number}})
+				in
+				    #"Changed Type"
+

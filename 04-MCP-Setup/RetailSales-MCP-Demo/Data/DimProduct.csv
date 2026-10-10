@@ -1,0 +1,26 @@
+ProductID,ProductName,ProductCategory,SubCategory,UnitPrice
+PROD-0001,ProBook 15,Electronics,Laptops,899.99
+PROD-0002,UltraSlim 13,Electronics,Laptops,1199.99
+PROD-0003,Workstation Z,Electronics,Laptops,1899.99
+PROD-0004,NoiseCancel Headphones,Electronics,Audio,199.99
+PROD-0005,Wireless Earbuds,Electronics,Audio,129.99
+PROD-0006,Studio Soundbar,Electronics,Audio,299.99
+PROD-0007,Ergo Mouse,Electronics,Accessories,49.99
+PROD-0008,Mechanical Keyboard,Electronics,Accessories,89.99
+PROD-0009,"4K Monitor 27""",Electronics,Accessories,349.99
+PROD-0010,Cotton Polo Shirt,Apparel,Clothing,34.99
+PROD-0011,Denim Jacket,Apparel,Clothing,79.99
+PROD-0012,Performance Hoodie,Apparel,Clothing,59.99
+PROD-0013,Trail Runner Shoes,Apparel,Footwear,119.99
+PROD-0014,Casual Sneakers,Apparel,Footwear,89.99
+PROD-0015,Leather Boots,Apparel,Footwear,149.99
+PROD-0016,Ergonomic Office Chair,Home & Office,Furniture,249.99
+PROD-0017,"Standing Desk 60""",Home & Office,Furniture,499.99
+PROD-0018,Bookshelf Unit,Home & Office,Furniture,149.99
+PROD-0019,LED Desk Lamp,Home & Office,Lighting,39.99
+PROD-0020,Ambient Floor Light,Home & Office,Lighting,79.99
+PROD-0021,Yoga Mat Pro,Sports,Fitness,29.99
+PROD-0022,Adjustable Dumbbell Set,Sports,Fitness,199.99
+PROD-0023,Smart Fitness Watch,Sports,Fitness,159.99
+PROD-0024,Camping Tent 4P,Sports,Outdoor,189.99
+PROD-0025,Hiking Backpack 45L,Sports,Outdoor,99.99
