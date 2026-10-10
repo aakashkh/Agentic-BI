@@ -1,0 +1,24 @@
+{
+  "mcpServers": {
+    "microsoft-powerbi-modeling": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@microsoft/powerbi-modeling-mcp",
+        "--project-path",
+        "c:/Users/aakashkhandelwal/Downloads/Learning/Agentic BI/03-Demo-Project/RetailSales.pbip"
+      ]
+    },
+    "powerbi-modeling-offline-fallback": {
+      "command": "python",
+      "args": [
+        "c:/Users/aakashkhandelwal/Downloads/Learning/Agentic BI/04-MCP-Setup/mock-mcp-simulator.py",
+        "--pbip-root",
+        "c:/Users/aakashkhandelwal/Downloads/Learning/Agentic BI/03-Demo-Project/RetailSales.pbip"
+      ],
+      "env": {
+        "PYTHONUNBUFFERED": "1"
+      }
+    }
+  }
+}

@@ -1,0 +1,1236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Agentic Business Intelligence — Interactive Workshop Slides</title>
+  <script src="https://www.gstatic.com/antigravity/web/dev/tailwindcss.min.js"></script>
+  <style>
+    :root, body.dark {
+      --background: #090d16;
+      --foreground: #f8fafc;
+      --card: #0f172a;
+      --border: #1e293b;
+      --muted-foreground: #94a3b8;
+      --accent: #1e293b;
+      --modal-bg: #0f172a;
+      --modal-border: #334155;
+      --modal-text: #f8fafc;
+    }
+    body.light {
+      --background: #f8fafc;
+      --foreground: #0f172a;
+      --card: #ffffff;
+      --border: #cbd5e1;
+      --muted-foreground: #475569;
+      --accent: #f1f5f9;
+      --modal-bg: #ffffff;
+      --modal-border: #94a3b8;
+      --modal-text: #0f172a;
+    }
+    .slide-enter { animation: fadeIn 0.3s ease-in-out; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+    pre { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; }
+  </style>
+</head>
+<body class="bg-[var(--background)] text-[var(--foreground)] antialiased min-h-screen flex flex-col font-sans select-none transition-colors duration-200">
+
+  <!-- TOP BAR & PROGRESS -->
+  <header class="border-b border-[var(--border)] bg-[var(--card)] px-6 py-3 flex items-center justify-between shadow-sm sticky top-0 z-50">
+    <div class="flex items-center space-x-3">
+      <div class="w-3 h-3 rounded-full bg-emerald-500 animate-pulse"></div>
+      <span class="font-bold text-base tracking-wide text-[var(--foreground)]">Agentic BI Workshop</span>
+      <span class="text-xs px-2 py-0.5 rounded bg-blue-500/10 text-blue-500 font-medium border border-blue-500/20">Microsoft Power BI MCP + PBIP</span>
+    </div>
+
+    <!-- CENTER SLIDE TRACKER & CONTROLS -->
+    <div class="flex items-center space-x-3">
+      <button id="theme-btn" onclick="toggleTheme()" class="text-xs px-3 py-1.5 rounded-lg border border-[var(--border)] hover:bg-[var(--accent)] text-[var(--foreground)] transition flex items-center space-x-1.5 font-medium">
+        <span>☀️ Light / 🌙 Dark</span>
+      </button>
+      <button id="toc-btn" onclick="toggleToc()" class="text-xs px-3 py-1.5 rounded-lg border border-[var(--border)] hover:bg-[var(--accent)] text-[var(--muted-foreground)] transition flex items-center space-x-1.5">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h7"/></svg>
+        <span>Overview</span>
+      </button>
+      <span id="slide-number" class="text-sm font-semibold text-[var(--foreground)] min-w-[100px] text-center">Slide 1 of 18</span>
+    </div>
+
+    <!-- CONTROLS -->
+    <div class="flex items-center space-x-2">
+      <button onclick="prevSlide()" class="p-2 rounded-lg border border-[var(--border)] hover:bg-[var(--accent)] text-[var(--foreground)] disabled:opacity-40 disabled:cursor-not-allowed transition" id="prev-btn">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
+      </button>
+      <button onclick="nextSlide()" class="p-2 rounded-lg border border-[var(--border)] hover:bg-[var(--accent)] text-[var(--foreground)] disabled:opacity-40 disabled:cursor-not-allowed transition" id="next-btn">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <!-- PROGRESS BAR -->
+  <div class="w-full bg-[var(--border)] h-1 sticky top-[57px] z-50">
+    <div id="progress-bar" class="bg-blue-600 h-1 transition-all duration-300 w-[5.88%]"></div>
+  </div>
+
+  <!-- SLIDE CONTAINER -->
+  <main class="flex-1 max-w-6xl w-full mx-auto p-6 md:p-10 flex flex-col justify-center">
+
+    <!-- SLIDE 1: TITLE -->
+    <section class="slide slide-enter flex flex-col items-center text-center space-y-6 py-6" id="slide-1">
+      <div class="inline-flex items-center space-x-2 px-4 py-1.5 rounded-full bg-gradient-to-r from-blue-500/10 to-indigo-500/10 border border-blue-500/20 text-blue-500 text-sm font-medium">
+        <span>⚡ 90-Minute Hands-On Workshop</span>
+      </div>
+      <h1 class="text-3xl md:text-5xl font-extrabold tracking-tight text-[var(--foreground)] leading-tight max-w-4xl">
+        Agentic Business Intelligence
+      </h1>
+      <p class="text-lg md:text-xl text-[var(--muted-foreground)] font-medium max-w-3xl">
+        Build a Thinking Dashboard with <span class="text-blue-500 font-semibold">Microsoft Power BI MCP</span> + <span class="text-emerald-500 font-semibold">PBIP</span>
+      </p>
+
+      <div class="relative group cursor-pointer rounded-2xl overflow-hidden border border-[var(--border)] shadow-lg my-2 w-full max-w-4xl" onclick="openLightbox('images/dual_agent_continuum.jpg', 'Dual-Agent Business Intelligence Continuum')">
+        <img src="images/dual_agent_continuum.jpg" alt="Dual-Agent Business Intelligence Continuum" class="w-full h-auto object-cover group-hover:scale-[1.01] transition duration-300">
+        <div class="absolute bottom-3 right-3 px-3 py-1 bg-slate-950/80 backdrop-blur-sm text-white text-[11px] font-bold rounded-lg border border-white/20 opacity-90 group-hover:opacity-100 flex items-center space-x-1.5 shadow">
+          <span>🔍 Click to expand full screen</span>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 w-full max-w-3xl text-left">
+        <div class="p-3 rounded-xl border border-[var(--border)] bg-[var(--card)]">
+          <div class="text-[10px] uppercase tracking-wider text-[var(--muted-foreground)] font-bold mb-0.5">Paradigm</div>
+          <div class="text-xs font-semibold text-[var(--foreground)]">PBIX Binary ➔ PBIP Code</div>
+        </div>
+        <div class="p-3 rounded-xl border border-[var(--border)] bg-[var(--card)]">
+          <div class="text-[10px] uppercase tracking-wider text-[var(--muted-foreground)] font-bold mb-1">Protocol</div>
+          <div class="text-xs font-semibold text-[var(--foreground)]">Microsoft Power BI MCP</div>
+        </div>
+        <div class="p-3 rounded-xl border border-[var(--border)] bg-[var(--card)]">
+          <div class="text-[10px] uppercase tracking-wider text-[var(--muted-foreground)] font-bold mb-1">CI/CD & Git</div>
+          <div class="text-xs font-semibold text-[var(--foreground)]">Azure DevOps & Fabric Git Sync</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 2: THE PBIX BOTTLENECK -->
+    <section class="slide hidden slide-enter space-y-6" id="slide-2">
+      <div class="border-b border-[var(--border)] pb-4">
+        <div class="text-xs font-bold uppercase tracking-wider text-blue-500">Problem Statement</div>
+        <h2 class="text-3xl font-bold text-[var(--foreground)]">The PBIX Bottleneck: Why Binary Files Block AI</h2>
+      </div>
+
+      <div class="relative group cursor-pointer rounded-xl overflow-hidden border border-[var(--border)] shadow-md my-2" onclick="openLightbox('images/git_pbix_vs_pbip_diff.jpg', 'Git Versioning Diff: Binary .PBIX vs Plain-Text TMDL .PBIP')">
+        <img src="images/git_pbix_vs_pbip_diff.jpg" alt="Git Versioning Diff: Binary PBIX vs Plain-Text PBIP" class="w-full h-auto object-cover group-hover:scale-[1.01] transition duration-300">
+        <div class="absolute bottom-2 right-2 px-2.5 py-1 bg-slate-950/80 backdrop-blur-sm text-white text-[10px] font-bold rounded-lg border border-white/20 opacity-90 group-hover:opacity-100 flex items-center space-x-1 shadow">
+          <span>🔍 Click to expand full screen</span>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="p-6 rounded-2xl border border-red-500/20 bg-red-500/5 space-y-4">
+          <div class="flex items-center space-x-3 text-red-500 font-bold text-lg">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+            <span>Legacy PBIX Workflow</span>
+          </div>
+          <ul class="space-y-3 text-sm text-[var(--muted-foreground)]">
+            <li class="flex items-start space-x-2"><span class="text-red-500 font-bold">•</span><span><strong>Binary Zip Archive</strong>: Locked format, LLMs cannot read or edit raw bytes.</span></li>
+            <li class="flex items-start space-x-2"><span class="text-red-500 font-bold">•</span><span><strong>Git Merge Nightmares</strong>: Conflicts force developer overwrites.</span></li>
+            <li class="flex items-start space-x-2"><span class="text-red-500 font-bold">•</span><span><strong>GUI Locking</strong>: Power BI Desktop `.exe` required for every minor measure tweak.</span></li>
+            <li class="flex items-start space-x-2"><span class="text-red-500 font-bold">•</span><span><strong>Zero Peer Review</strong>: PRs are unreviewable binary blobs.</span></li>
+          </ul>
+        </div>
+
+        <div class="p-6 rounded-2xl border border-emerald-500/20 bg-emerald-500/5 space-y-4">
+          <div class="flex items-center space-x-3 text-emerald-500 font-bold text-lg">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+            <span>Agentic PBIP + TMDL Era</span>
+          </div>
+          <ul class="space-y-3 text-sm text-[var(--muted-foreground)]">
+            <li class="flex items-start space-x-2"><span class="text-emerald-500 font-bold">•</span><span><strong>Plain-Text Code</strong>: TMDL files sit natively in Git repositories.</span></li>
+            <li class="flex items-start space-x-2"><span class="text-emerald-500 font-bold">•</span><span><strong>Agent Co-Developer</strong>: AI edits TMDL via Microsoft Power BI MCP Server.</span></li>
+            <li class="flex items-start space-x-2"><span class="text-emerald-500 font-bold">•</span><span><strong>Headless BI</strong>: Edit models on Mac, Linux, or GitHub Codespaces.</span></li>
+            <li class="flex items-start space-x-2"><span class="text-emerald-500 font-bold">•</span><span><strong>Git PR Quality Gate</strong>: Line-by-line diffs with automated CI checks.</span></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 3: PBIP FOLDER & FILE STRUCTURE -->
+    <section class="slide hidden slide-enter space-y-4" id="slide-3">
+      <div class="border-b border-[var(--border)] pb-3 flex justify-between items-end">
+        <div>
+          <div class="text-xs font-bold uppercase tracking-wider text-blue-500">Project Architecture</div>
+          <h2 class="text-2xl md:text-3xl font-bold text-[var(--foreground)]">PBIP Directory & File Hierarchy</h2>
+        </div>
+        <span class="text-xs font-mono px-3 py-1 bg-[var(--card)] border border-[var(--border)] text-[var(--muted-foreground)] rounded">RetailSales.pbip</span>
+      </div>
+
+      <div class="relative group cursor-pointer rounded-xl overflow-hidden border border-[var(--border)] shadow-md my-2" onclick="openLightbox('images/pbip_folder_deep_dive.jpg', 'Power BI Project (.pbip) Folder Hierarchy & Internal Schema Anatomy')">
+        <img src="images/pbip_folder_deep_dive.jpg" alt="Power BI Project PBIP Folder Deep Dive Architecture" class="w-full h-auto object-cover group-hover:scale-[1.01] transition duration-300">
+        <div class="absolute bottom-2 right-2 px-2.5 py-1 bg-slate-950/80 backdrop-blur-sm text-white text-[10px] font-bold rounded-lg border border-white/20 opacity-90 group-hover:opacity-100 flex items-center space-x-1 shadow">
+          <span>🔍 Click to expand full screen</span>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-6">
+        <!-- LEFT: INTERACTIVE FILE TREE -->
+        <div class="md:col-span-5 bg-slate-950 text-slate-200 rounded-xl p-4 text-xs font-mono border border-slate-800 space-y-2 overflow-x-auto shadow-inner">
+          <div class="text-slate-500 pb-2 border-b border-slate-800 flex justify-between font-bold">
+            <span>FOLDER STRUCTURE</span>
+            <span class="text-blue-400">PBIP Specs</span>
+          </div>
+          <div class="space-y-1">
+            <div onclick="showFileDetails('pbip')" class="cursor-pointer hover:bg-blue-500/20 p-1.5 rounded flex items-center space-x-2 text-blue-400 font-bold">
+              <span>📄 RetailSales.pbip</span>
+            </div>
+            <div class="pl-3 border-l border-slate-800 space-y-1">
+              <div onclick="showFileDetails('report')" class="cursor-pointer hover:bg-purple-500/20 p-1.5 rounded flex items-center space-x-2 text-purple-400">
+                <span>📁 RetailSales.Report/</span>
+              </div>
+              <div class="pl-4 border-l border-slate-800 space-y-1 text-slate-400">
+                <div onclick="showFileDetails('pbir')" class="cursor-pointer hover:bg-slate-800 p-1 rounded">📄 definition.pbir</div>
+                <div onclick="showFileDetails('report_json')" class="cursor-pointer hover:bg-slate-800 p-1 rounded">📄 definition/report.json</div>
+                <div onclick="showFileDetails('item_config')" class="cursor-pointer hover:bg-slate-800 p-1 rounded">📄 item.config.json</div>
+              </div>
+              <div onclick="showFileDetails('dataset')" class="cursor-pointer hover:bg-emerald-500/20 p-1.5 rounded flex items-center space-x-2 text-emerald-400">
+                <span>📁 RetailSales.Dataset/</span>
+              </div>
+              <div class="pl-4 border-l border-slate-800 space-y-1 text-slate-400">
+                <div onclick="showFileDetails('pbism')" class="cursor-pointer hover:bg-slate-800 p-1 rounded">📄 definition.pbism</div>
+                <div onclick="showFileDetails('bim')" class="cursor-pointer hover:bg-slate-800 p-1 rounded">📄 model.bim</div>
+                <div onclick="showFileDetails('tmdl')" class="cursor-pointer hover:bg-slate-800 p-1 rounded">📁 definition/tables/*.tmdl</div>
+              </div>
+              <div onclick="showFileDetails('cache')" class="cursor-pointer hover:bg-red-500/20 p-1.5 rounded flex items-center space-x-2 text-red-400 font-bold">
+                <span>🚫 .cache/ & .pbi/ (Git Ignore)</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- RIGHT: FILE DETAIL INSPECTOR -->
+        <div class="md:col-span-7 p-6 rounded-xl border border-[var(--border)] bg-[var(--card)] space-y-4 flex flex-col justify-between">
+          <div>
+            <div id="file-title-badge" class="inline-block text-xs font-mono font-bold px-2.5 py-1 rounded bg-blue-500/10 text-blue-500 mb-2">
+              RetailSales.pbip
+            </div>
+            <h3 id="file-title" class="text-xl font-bold text-[var(--foreground)]">Root Project Pointer File</h3>
+            <p id="file-desc" class="text-xs text-[var(--muted-foreground)] mt-2 leading-relaxed">
+              The entry point file opened by Power BI Desktop. Contains JSON metadata pointing to the report artifact path and user recovery settings.
+            </p>
+          </div>
+
+          <div class="bg-slate-950 text-slate-200 rounded-lg p-3 text-xs font-mono border border-slate-800 overflow-x-auto">
+            <div class="text-slate-500 pb-1 mb-1 border-b border-slate-800 font-bold">JSON SPECIFICATION</div>
+            <pre id="file-spec"><code>{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/pbip/pbipProperties/1.0.0/schema.json",
+  "version": "1.0",
+  "artifacts": [ { "report": { "path": "RetailSales.Report" } } ]
+}</code></pre>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 4: PBIX GUI VS PBIP TMDL PARALLEL MAP -->
+    <section class="slide hidden slide-enter space-y-6" id="slide-4">
+      <div class="border-b border-[var(--border)] pb-4">
+        <div class="text-xs font-bold uppercase tracking-wider text-emerald-500">Developer Mental Model</div>
+        <h2 class="text-3xl font-bold text-[var(--foreground)]">PBIX Desktop GUI ➔ PBIP/TMDL Folder Parallel Map</h2>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-6">
+        <!-- LEFT: PBIX GUI ACTIONS SELECTOR -->
+        <div class="md:col-span-5 space-y-2">
+          <div class="text-xs font-bold text-[var(--muted-foreground)] uppercase tracking-wider mb-2">Click a PBIX GUI Action:</div>
+          
+          <button onclick="showMapping('relationships')" class="w-full text-left p-3 rounded-xl border border-[var(--border)] hover:bg-blue-500/10 hover:border-blue-500/30 transition text-xs font-semibold flex items-center justify-between">
+            <span>1. Model View ➔ Drag & Drop Relationship</span>
+            <span class="text-blue-500 font-mono text-[10px]">relationships.tmdl</span>
+          </button>
+
+          <button onclick="showMapping('measure')" class="w-full text-left p-3 rounded-xl border border-[var(--border)] hover:bg-purple-500/10 hover:border-purple-500/30 transition text-xs font-semibold flex items-center justify-between">
+            <span>2. Fields Pane ➔ Right Click Table ➔ New Measure</span>
+            <span class="text-purple-500 font-mono text-[10px]">tables/[Table].tmdl</span>
+          </button>
+
+          <button onclick="showMapping('mquery')" class="w-full text-left p-3 rounded-xl border border-[var(--border)] hover:bg-emerald-500/10 hover:border-emerald-500/30 transition text-xs font-semibold flex items-center justify-between">
+            <span>3. Transform Data ➔ Power Query M Editor</span>
+            <span class="text-emerald-500 font-mono text-[10px]">partition = m</span>
+          </button>
+
+          <button onclick="showMapping('rls')" class="w-full text-left p-3 rounded-xl border border-[var(--border)] hover:bg-amber-500/10 hover:border-amber-500/30 transition text-xs font-semibold flex items-center justify-between">
+            <span>4. Modeling Tab ➔ Manage Roles (RLS)</span>
+            <span class="text-amber-500 font-mono text-[10px]">roles/[Role].tmdl</span>
+          </button>
+
+          <button onclick="showMapping('datetable')" class="w-full text-left p-3 rounded-xl border border-[var(--border)] hover:bg-indigo-500/10 hover:border-indigo-500/30 transition text-xs font-semibold flex items-center justify-between">
+            <span>5. Modeling Tab ➔ Mark as Date Table</span>
+            <span class="text-indigo-500 font-mono text-[10px]">dataCategory: Time</span>
+          </button>
+        </div>
+
+        <!-- RIGHT: PBIP CODE MAPPING DISPLAY -->
+        <div class="md:col-span-7 p-6 rounded-2xl border border-[var(--border)] bg-[var(--card)] space-y-4 flex flex-col justify-between">
+          <div>
+            <div id="map-badge" class="inline-block text-xs font-mono font-bold px-2.5 py-1 rounded bg-blue-500/10 text-blue-500 mb-2">
+              RetailSales.Dataset/definition/relationships.tmdl
+            </div>
+            <h3 id="map-title" class="text-xl font-bold text-[var(--foreground)]">Relationship Diagram View</h3>
+            <p id="map-desc" class="text-xs text-[var(--muted-foreground)] mt-2">
+              In PBIX, relationships are drawn visually on a canvas. In TMDL, they are listed cleanly in `relationships.tmdl` with explicit from/to columns and cross-filter directions.
+            </p>
+          </div>
+
+          <div class="bg-slate-950 text-slate-200 rounded-xl p-3 text-xs font-mono border border-slate-800 overflow-x-auto">
+            <div class="text-slate-500 pb-1 mb-1 border-b border-slate-800 font-bold">TMDL CODE SNIPPET</div>
+            <pre id="map-code"><code>relationship Rel_FactSales_DimCustomer
+	fromColumn: FactSales.CustomerID
+	toColumn: DimCustomer.CustomerID
+
+relationship Rel_FactSales_DimDate
+	fromColumn: FactSales.OrderDate
+	toColumn: DimDate.Date</code></pre>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 5: JSON SCHEMAS & ARTIFACT SPECS -->
+    <section class="slide hidden slide-enter space-y-6" id="slide-5">
+      <div class="border-b border-[var(--border)] pb-4">
+        <div class="text-xs font-bold uppercase tracking-wider text-purple-500">Technical Deep Dive</div>
+        <h2 class="text-3xl font-bold text-[var(--foreground)]">PBIP JSON Schemas & Metadata Specifications</h2>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div class="p-5 rounded-xl border border-[var(--border)] bg-[var(--card)] space-y-3">
+          <div class="text-xs font-bold font-mono px-2 py-1 rounded bg-blue-500/10 text-blue-500 inline-block">definition.pbir</div>
+          <h4 class="font-bold text-sm">Report Pointer</h4>
+          <p class="text-xs text-[var(--muted-foreground)]">Links the report to its semantic model (`../RetailSales.Dataset`) using relative paths or Fabric workspace connection GUIDs.</p>
+        </div>
+
+        <div class="p-5 rounded-xl border border-[var(--border)] bg-[var(--card)] space-y-3">
+          <div class="text-xs font-bold font-mono px-2 py-1 rounded bg-emerald-500/10 text-emerald-500 inline-block">definition.pbism</div>
+          <h4 class="font-bold text-sm">Dataset Pointer</h4>
+          <p class="text-xs text-[var(--muted-foreground)]">Declares the dataset artifact boundaries in Fabric (`semanticModel/definitionProperties/1.0.0/schema.json`).</p>
+        </div>
+
+        <div class="p-5 rounded-xl border border-[var(--border)] bg-[var(--card)] space-y-3">
+          <div class="text-xs font-bold font-mono px-2 py-1 rounded bg-purple-500/10 text-purple-500 inline-block">item.config.json</div>
+          <h4 class="font-bold text-sm">Fabric Artifact Identity</h4>
+          <p class="text-xs text-[var(--muted-foreground)]">Assigns a persistent `logicalId` GUID to report and dataset items for Fabric Git integration tracking.</p>
+        </div>
+      </div>
+
+      <div class="p-5 rounded-xl border border-[var(--border)] bg-[var(--card)] space-y-3">
+        <h4 class="font-bold text-sm text-[var(--foreground)]">model.bim vs. TMDL Sync Paradigm:</h4>
+        <p class="text-xs text-[var(--muted-foreground)]">
+          Power BI Desktop supports both TMSL (`model.bim`) and TMDL (`definition/*.tmdl`). When TMDL preview is enabled, Power BI Desktop parses TMDL files on load, and syncs changes bi-directionally.
+        </p>
+      </div>
+    </section>
+
+    <!-- SLIDE 6: TMDL SYNTAX ANATOMY -->
+    <section class="slide hidden slide-enter space-y-6" id="slide-6">
+      <div class="border-b border-[var(--border)] pb-4 flex justify-between items-end">
+        <div>
+          <div class="text-xs font-bold uppercase tracking-wider text-emerald-500">File Format</div>
+          <h2 class="text-3xl font-bold text-[var(--foreground)]">TMDL Syntax Anatomy & Triple-Slash Comments</h2>
+        </div>
+        <span class="text-xs px-3 py-1 rounded bg-[var(--card)] border border-[var(--border)] font-mono text-[var(--muted-foreground)]">FactSales.tmdl</span>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-6">
+        <div class="md:col-span-7 bg-slate-950 text-slate-100 rounded-xl p-4 text-xs font-mono border border-slate-800 overflow-x-auto shadow-inner">
+          <div class="text-slate-500 pb-2 border-b border-slate-800 mb-2 flex justify-between">
+            <span>definition/tables/FactSales.tmdl</span>
+            <span class="text-emerald-400">✓ Plain Text</span>
+          </div>
+<pre><code><span class="text-purple-400">table</span> FactSales
+	lineageTag: 11111111-2222-3333-4444-555555555555
+
+	<span class="text-emerald-400">/// Sum of total gross sales revenue in USD</span>
+	<span class="text-purple-400">measure</span> 'Total Sales' = <span class="text-blue-400">SUM</span>(FactSales[SalesAmount])
+		formatString: \$#,0.00
+		displayFolder: Base Metrics
+
+	<span class="text-emerald-400">/// YoY Growth % calculated with divide-by-zero protection</span>
+	<span class="text-purple-400">measure</span> 'YoY Sales Growth %' = 
+			<span class="text-purple-400">VAR</span> CurrentSales = [Total Sales]
+			<span class="text-purple-400">VAR</span> PriorSales = <span class="text-blue-400">CALCULATE</span>([Total Sales], <span class="text-blue-400">SAMEPERIODLASTYEAR</span>('DimDate'[Date]))
+			<span class="text-purple-400">RETURN</span>
+				<span class="text-blue-400">DIVIDE</span>(CurrentSales - PriorSales, PriorSales, 0)
+		formatString: 0.00%
+		displayFolder: Time Intelligence</code></pre>
+        </div>
+
+        <div class="md:col-span-5 space-y-3">
+          <div class="p-4 rounded-xl border border-[var(--border)] bg-[var(--card)]">
+            <h4 class="font-bold text-sm text-emerald-500 mb-1">Triple-Slash Documentation (///)</h4>
+            <p class="text-xs text-[var(--muted-foreground)]">Comments automatically map to description metadata in Power BI & Fabric Data Agents.</p>
+          </div>
+          <div class="p-4 rounded-xl border border-[var(--border)] bg-[var(--card)]">
+            <h4 class="font-bold text-sm text-blue-500 mb-1">Indentation Scoping</h4>
+            <p class="text-xs text-[var(--muted-foreground)]">YAML-like tab indents define measures, display folders, and data types cleanly.</p>
+          </div>
+          <div class="p-4 rounded-xl border border-[var(--border)] bg-[var(--card)]">
+            <h4 class="font-bold text-sm text-purple-500 mb-1">Native Multi-Line DAX</h4>
+            <p class="text-xs text-[var(--muted-foreground)]">Complex DAX with VAR/RETURN blocks format naturally within Git diffs.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 7: THE CACHE ASPECT & GIT HYGIENE -->
+    <section class="slide hidden slide-enter space-y-6" id="slide-7">
+      <div class="border-b border-[var(--border)] pb-4">
+        <div class="text-xs font-bold uppercase tracking-wider text-red-500">Security & Version Control</div>
+        <h2 class="text-3xl font-bold text-[var(--foreground)]">The `.cache` Aspect & `.gitignore` Rules</h2>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="p-6 rounded-2xl border border-red-500/30 bg-red-500/5 space-y-4">
+          <div class="flex items-center space-x-2 text-red-500 font-bold text-base">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+            <span>What is in `.cache/` and `.pbi/`?</span>
+          </div>
+          <ul class="text-xs space-y-2 text-[var(--muted-foreground)]">
+            <li><strong>`cache.abf`</strong>: Compressed local Analysis Services database binary cache containing actual imported data rows.</li>
+            <li><strong>`localSettings.json`</strong>: User-specific local credentials, connection overrides, and window state.</li>
+            <li class="text-red-400 font-bold pt-2">⚠️ Why committing `.cache` is dangerous:</li>
+            <li class="pl-3 text-red-400">• Bloats Git repo size with multi-gigabyte binary files.</li>
+            <li class="pl-3 text-red-400">• Exposes sensitive database records in source code history.</li>
+            <li class="pl-3 text-red-400">• Triggers merge conflicts on every local report view.</li>
+          </ul>
+        </div>
+
+        <div class="p-6 rounded-2xl border border-emerald-500/30 bg-emerald-500/5 space-y-4">
+          <div class="flex items-center space-x-2 text-emerald-500 font-bold text-base">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+            <span>Standard `.gitignore` Configuration</span>
+          </div>
+          <div class="bg-slate-950 text-slate-200 rounded-xl p-3 text-xs font-mono border border-slate-800">
+            <div class="text-slate-500 pb-1 mb-1 border-b border-slate-800">// .gitignore for PBIP</div>
+<pre><code># Power BI Local Cache & Settings
+.cache/
+.pbi/
+cache.abf
+localSettings.json
+*.tmp
+
+# OS & Environment
+.DS_Store
+Thumbs.db</code></pre>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 8: DUAL AGENT CONTINUUM -->
+    <section class="slide hidden slide-enter space-y-6" id="slide-8">
+      <div class="border-b border-[var(--border)] pb-4">
+        <div class="text-xs font-bold uppercase tracking-wider text-blue-500">Architecture Blueprint</div>
+        <h2 class="text-3xl font-bold text-[var(--foreground)]">The Dual-Agent Continuum</h2>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 relative">
+        <div class="p-6 rounded-2xl border border-blue-500/30 bg-blue-500/5 space-y-4">
+          <div class="flex justify-between items-center">
+            <span class="text-xs font-bold px-2.5 py-1 rounded bg-blue-500/20 text-blue-500">AUTHORING PHASE</span>
+            <span class="text-xs font-mono text-[var(--muted-foreground)]">VS Code / Dev Environment</span>
+          </div>
+          <h3 class="text-xl font-bold text-[var(--foreground)]">Authoring Agent (Developer Co-Pilot)</h3>
+          <p class="text-xs text-[var(--muted-foreground)]">Powered by Microsoft Power BI Modeling MCP Server</p>
+          <ul class="text-xs space-y-2 text-[var(--muted-foreground)]">
+            <li class="flex items-center space-x-2"><span class="text-blue-500">✔</span><span>Generates DAX measures via natural language</span></li>
+            <li class="flex items-center space-x-2"><span class="text-blue-500">✔</span><span>Auto-documents TMDL schema (`///` descriptions)</span></li>
+            <li class="flex items-center space-x-2"><span class="text-blue-500">✔</span><span>Manages relationships & calculation groups</span></li>
+            <li class="flex items-center space-x-2"><span class="text-blue-500">✔</span><span>Validates TMDL syntax before Git commit</span></li>
+          </ul>
+        </div>
+
+        <div class="p-6 rounded-2xl border border-purple-500/30 bg-purple-500/5 space-y-4">
+          <div class="flex justify-between items-center">
+            <span class="text-xs font-bold px-2.5 py-1 rounded bg-purple-500/20 text-purple-500">CONSUMPTION PHASE</span>
+            <span class="text-xs font-mono text-[var(--muted-foreground)]">Microsoft Fabric Workspace</span>
+          </div>
+          <h3 class="text-xl font-bold text-[var(--foreground)]">Consumption Agent (Fabric Data Agent)</h3>
+          <p class="text-xs text-[var(--muted-foreground)]">Executive & End-User Conversational Q&A Hook</p>
+          <ul class="text-xs space-y-2 text-[var(--muted-foreground)]">
+            <li class="flex items-center space-x-2"><span class="text-purple-500">✔</span><span>Answers natural language data queries</span></li>
+            <li class="flex items-center space-x-2"><span class="text-purple-500">✔</span><span>Generates dynamic DAX & exploratory charts</span></li>
+            <li class="flex items-center space-x-2"><span class="text-purple-500">✔</span><span>Relies 100% on authoring phase TMDL metadata</span></li>
+            <li class="flex items-center space-x-2"><span class="text-purple-500">✔</span><span>Hook for business users (Requires Fabric capacity)</span></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="p-4 rounded-xl border border-amber-500/30 bg-amber-500/10 text-xs text-amber-600 dark:text-amber-400 font-medium text-center">
+        💡 <strong>The Golden Rule</strong>: <em>Fabric Data Agents are only as smart as your TMDL metadata. Authoring Agents enrich TMDL with descriptions and measures so Fabric Data Agents deliver accurate answers on day one.</em>
+      </div>
+    </section>
+
+    <!-- SLIDE 9: MICROSOFT POWER BI MCP SERVER -->
+    <section class="slide hidden slide-enter space-y-4" id="slide-9">
+      <div class="border-b border-[var(--border)] pb-3 flex justify-between items-end">
+        <div>
+          <div class="text-xs font-bold uppercase tracking-wider text-blue-500">Protocol Specification</div>
+          <h2 class="text-2xl md:text-3xl font-bold text-[var(--foreground)]">Microsoft Power BI Modeling MCP Server</h2>
+        </div>
+        <span class="text-xs font-mono px-3 py-1 bg-blue-500/10 text-blue-500 border border-blue-500/20 rounded">@microsoft/powerbi-modeling-mcp</span>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 my-2">
+        <div class="relative group cursor-pointer rounded-xl overflow-hidden border border-[var(--border)] shadow-md" onclick="openLightbox('images/mcp_protocol_anatomy.jpg', 'Model Context Protocol (MCP) Framework Anatomy')">
+          <img src="images/mcp_protocol_anatomy.jpg" alt="MCP Framework Anatomy" class="w-full h-auto object-cover group-hover:scale-[1.01] transition duration-300">
+          <div class="absolute bottom-2 right-2 px-2.5 py-1 bg-slate-950/80 backdrop-blur-sm text-white text-[10px] font-bold rounded-lg border border-white/20 opacity-90 group-hover:opacity-100 flex items-center space-x-1 shadow">
+            <span>🔍 Protocol Anatomy</span>
+          </div>
+        </div>
+
+        <div class="relative group cursor-pointer rounded-xl overflow-hidden border border-[var(--border)] shadow-md" onclick="openLightbox('images/mcp_vs_standard_prompts.jpg', 'Why MCP Tool Use Beats Standard LLM Chat Prompts')">
+          <img src="images/mcp_vs_standard_prompts.jpg" alt="MCP Tool Use vs Standard Prompts" class="w-full h-auto object-cover group-hover:scale-[1.01] transition duration-300">
+          <div class="absolute bottom-2 right-2 px-2.5 py-1 bg-slate-950/80 backdrop-blur-sm text-white text-[10px] font-bold rounded-lg border border-white/20 opacity-90 group-hover:opacity-100 flex items-center space-x-1 shadow">
+            <span>🔍 Why Use MCP</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div class="p-5 rounded-xl border border-[var(--border)] bg-[var(--card)] space-y-2">
+          <div class="text-blue-500 font-mono text-xs font-bold">pbi_get_schema</div>
+          <h4 class="font-bold text-sm">Schema Inspection</h4>
+          <p class="text-xs text-[var(--muted-foreground)]">Scans PBIP TMDL directory and exposes tables, columns, measures, and relationships to LLM context.</p>
+        </div>
+
+        <div class="p-5 rounded-xl border border-[var(--border)] bg-[var(--card)] space-y-2">
+          <div class="text-emerald-500 font-mono text-xs font-bold">pbi_add_measure</div>
+          <h4 class="font-bold text-sm">DAX Injection</h4>
+          <p class="text-xs text-[var(--muted-foreground)]">Appends formatted DAX measures with `formatString`, `displayFolder`, and `///` comments directly into target `.tmdl` files.</p>
+        </div>
+
+        <div class="p-5 rounded-xl border border-[var(--border)] bg-[var(--card)] space-y-2">
+          <div class="text-purple-500 font-mono text-xs font-bold">pbi_update_description</div>
+          <h4 class="font-bold text-sm">Auto-Documentation</h4>
+          <p class="text-xs text-[var(--muted-foreground)]">Injects business metadata descriptions into TMDL tables and columns automatically.</p>
+        </div>
+      </div>
+
+      <div class="p-4 rounded-xl border border-[var(--border)] bg-slate-950 text-slate-200 text-xs font-mono space-y-2">
+        <div class="text-slate-400 font-bold">// Setup in .vscode/mcp-servers.json</div>
+        <pre><code>{
+  "mcpServers": {
+    "powerbi-modeling": {
+      "command": "npx",
+      "args": ["-y", "<span class="text-blue-400">@microsoft/powerbi-modeling-mcp</span>", "--project-path", "./RetailSales.pbip"]
+    }
+  }
+}</code></pre>
+      </div>
+    </section>
+
+    <!-- SLIDE 10: FABRIC DATA AGENT READINESS CALCULATOR -->
+    <section class="slide hidden slide-enter space-y-4" id="slide-10">
+      <div class="border-b border-[var(--border)] pb-3">
+        <div class="text-xs font-bold uppercase tracking-wider text-purple-500">Interactive Assessment</div>
+        <h2 class="text-2xl md:text-3xl font-bold text-[var(--foreground)]">Fabric Data Agent Readiness Calculator</h2>
+      </div>
+
+      <div class="relative group cursor-pointer rounded-xl overflow-hidden border border-[var(--border)] shadow-md my-2" onclick="openLightbox('images/fabric_agent_tmdl.jpg', 'Microsoft Fabric AI Data Agent Reasoning Over TMDL Metadata')">
+        <img src="images/fabric_agent_tmdl.jpg" alt="Fabric Data Agent TMDL Reasoning" class="w-full h-auto object-cover group-hover:scale-[1.01] transition duration-300">
+        <div class="absolute bottom-2 right-2 px-2.5 py-1 bg-slate-950/80 backdrop-blur-sm text-white text-[10px] font-bold rounded-lg border border-white/20 opacity-90 group-hover:opacity-100 flex items-center space-x-1 shadow">
+          <span>🔍 Click to expand full screen</span>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-6">
+        <div class="md:col-span-7 p-6 rounded-2xl border border-[var(--border)] bg-[var(--card)] space-y-4">
+          <h4 class="font-bold text-sm text-[var(--foreground)]">Toggle TMDL Model Metadata Quality:</h4>
+          
+          <label class="flex items-center space-x-3 cursor-pointer">
+            <input type="checkbox" id="chk-desc" onchange="calcReadiness()" class="w-4 h-4 rounded text-blue-600" checked>
+            <span class="text-xs text-[var(--foreground)]">Triple-slash (`///`) descriptions added to all measures</span>
+          </label>
+
+          <label class="flex items-center space-x-3 cursor-pointer">
+            <input type="checkbox" id="chk-names" onchange="calcReadiness()" class="w-4 h-4 rounded text-blue-600" checked>
+            <span class="text-xs text-[var(--foreground)]">Business-friendly column names (e.g., `Customer Segment`)</span>
+          </label>
+
+          <label class="flex items-center space-x-3 cursor-pointer">
+            <input type="checkbox" id="chk-hidden" onchange="calcReadiness()" class="w-4 h-4 rounded text-blue-600">
+            <span class="text-xs text-[var(--foreground)]">Raw fact columns hidden (Prevent implicit aggregations)</span>
+          </label>
+
+          <label class="flex items-center space-x-3 cursor-pointer">
+            <input type="checkbox" id="chk-time" onchange="calcReadiness()" class="w-4 h-4 rounded text-blue-600" checked>
+            <span class="text-xs text-[var(--foreground)]">`dataCategory: Time` tagged on DimDate table</span>
+          </label>
+        </div>
+
+        <div class="md:col-span-5 p-6 rounded-2xl border border-[var(--border)] bg-[var(--card)] flex flex-col justify-center items-center text-center space-y-3">
+          <div class="text-xs text-[var(--muted-foreground)] font-bold uppercase">Fabric Data Agent Accuracy Score</div>
+          <div id="score-val" class="text-5xl font-black text-emerald-500">75%</div>
+          <div id="score-status" class="text-xs px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-500 font-bold">Good - Ready for Q&A</div>
+          <p class="text-xs text-[var(--muted-foreground)]">High quality TMDL metadata prevents Fabric Copilot hallucinations.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 11: LIVE WORKSHOP HANDS-ON WORKFLOW -->
+    <section class="slide hidden slide-enter space-y-6" id="slide-11">
+      <div class="border-b border-[var(--border)] pb-4">
+        <div class="text-xs font-bold uppercase tracking-wider text-emerald-500">Hands-on Roadmap</div>
+        <h2 class="text-3xl font-bold text-[var(--foreground)]">Live Workshop Hands-On Workflow</h2>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+        <div class="p-5 rounded-xl border border-[var(--border)] bg-[var(--card)] space-y-3">
+          <div class="w-8 h-8 rounded-lg bg-blue-500/10 text-blue-500 flex items-center justify-center font-bold text-sm">1</div>
+          <h4 class="font-bold text-sm">Open PBIP in VS Code</h4>
+          <p class="text-xs text-[var(--muted-foreground)]">Open `RetailSales.pbip` and explore plain-text TMDL table files.</p>
+        </div>
+
+        <div class="p-5 rounded-xl border border-[var(--border)] bg-[var(--card)] space-y-3">
+          <div class="w-8 h-8 rounded-lg bg-purple-500/10 text-purple-500 flex items-center justify-center font-bold text-sm">2</div>
+          <h4 class="font-bold text-sm">Connect MCP Server</h4>
+          <p class="text-xs text-[var(--muted-foreground)]">Verify Microsoft Power BI MCP Server connection via agent command.</p>
+        </div>
+
+        <div class="p-5 rounded-xl border border-[var(--border)] bg-[var(--card)] space-y-3">
+          <div class="w-8 h-8 rounded-lg bg-emerald-500/10 text-emerald-500 flex items-center justify-center font-bold text-sm">3</div>
+          <h4 class="font-bold text-sm">Prompt-Driven DAX</h4>
+          <p class="text-xs text-[var(--muted-foreground)]">Create YoY Sales Growth & Margin measures via natural language.</p>
+        </div>
+
+        <div class="p-5 rounded-xl border border-[var(--border)] bg-[var(--card)] space-y-3">
+          <div class="w-8 h-8 rounded-lg bg-amber-500/10 text-amber-500 flex items-center justify-center font-bold text-sm">4</div>
+          <h4 class="font-bold text-sm">Auto-Doc & Dictionary</h4>
+          <p class="text-xs text-[var(--muted-foreground)]">Generate TMDL `///` descriptions and compile a Markdown Data Dictionary.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 12: HEADLESS BI -->
+    <section class="slide hidden slide-enter space-y-6" id="slide-12">
+      <div class="border-b border-[var(--border)] pb-4">
+        <div class="text-xs font-bold uppercase tracking-wider text-blue-500">Platform Independence</div>
+        <h2 class="text-3xl font-bold text-[var(--foreground)]">Headless BI: Beyond Windows & Desktop GUI</h2>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="p-6 rounded-2xl border border-[var(--border)] bg-[var(--card)] space-y-3">
+          <div class="text-2xl">💻</div>
+          <h4 class="font-bold text-base">Cross-Platform Dev</h4>
+          <p class="text-xs text-[var(--muted-foreground)]">Model Power BI datasets on macOS, Linux, or GitHub Codespaces without running Power BI Desktop `.exe`.</p>
+        </div>
+
+        <div class="p-6 rounded-2xl border border-[var(--border)] bg-[var(--card)] space-y-3">
+          <div class="text-2xl">⚡</div>
+          <h4 class="font-bold text-base">Cross-Model Copying</h4>
+          <p class="text-xs text-[var(--muted-foreground)]">Copy standard calculation groups and KPI suites across 10 PBIP models instantly via agent prompts.</p>
+        </div>
+
+        <div class="p-6 rounded-2xl border border-[var(--border)] bg-[var(--card)] space-y-3">
+          <div class="text-2xl">🤖</div>
+          <h4 class="font-bold text-base">Automated Refactoring</h4>
+          <p class="text-xs text-[var(--muted-foreground)]">Batch-update formatting, remove unused columns, and fix unindexed relationships programmatically.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 13: FABRIC GIT INTEGRATION & AZURE DEVOPS ARCHITECTURE -->
+    <section class="slide hidden slide-enter space-y-6" id="slide-13">
+      <div class="border-b border-[var(--border)] pb-4">
+        <div class="text-xs font-bold uppercase tracking-wider text-blue-500">ALM & Versioning</div>
+        <h2 class="text-3xl font-bold text-[var(--foreground)]">Fabric Git Integration & Azure DevOps Architecture</h2>
+      </div>
+
+      <div class="p-6 rounded-2xl border border-[var(--border)] bg-[var(--card)] space-y-4">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-center">
+          <div class="p-4 rounded-xl border border-blue-500/20 bg-blue-500/5 space-y-2">
+            <span class="text-xs font-bold text-blue-500 uppercase">1. Feature Branch</span>
+            <p class="text-xs text-[var(--muted-foreground)]">Developer & AI Agent commit TMDL changes to Azure Repos / GitHub.</p>
+          </div>
+          <div class="p-4 rounded-xl border border-purple-500/20 bg-purple-500/5 space-y-2">
+            <span class="text-xs font-bold text-purple-500 uppercase">2. Pull Request Gate</span>
+            <p class="text-xs text-[var(--muted-foreground)]">Automated BPA linter checks & peer review on `main` branch merge.</p>
+          </div>
+          <div class="p-4 rounded-xl border border-emerald-500/20 bg-emerald-500/5 space-y-2">
+            <span class="text-xs font-bold text-emerald-500 uppercase">3. Fabric Workspace Sync</span>
+            <p class="text-xs text-[var(--muted-foreground)]">Fabric workspace syncs directly with Git `main` branch to update semantic model.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 14: AZURE DEVOPS CI/CD PIPELINES FOR POWER BI -->
+    <section class="slide hidden slide-enter space-y-4" id="slide-14">
+      <div class="border-b border-[var(--border)] pb-3">
+        <div class="text-xs font-bold uppercase tracking-wider text-purple-500">Automation</div>
+        <h2 class="text-2xl md:text-3xl font-bold text-[var(--foreground)]">Azure DevOps CI/CD Pipelines for Power BI</h2>
+      </div>
+
+      <div class="relative group cursor-pointer rounded-xl overflow-hidden border border-[var(--border)] shadow-md my-2" onclick="openLightbox('images/cicd_pipeline_gate.jpg', 'Azure DevOps Automated CI/CD Testing Gate for Power BI TMDL')">
+        <img src="images/cicd_pipeline_gate.jpg" alt="CI/CD Pipeline Gate Workflow" class="w-full h-auto object-cover group-hover:scale-[1.01] transition duration-300">
+        <div class="absolute bottom-2 right-2 px-2.5 py-1 bg-slate-950/80 backdrop-blur-sm text-white text-[10px] font-bold rounded-lg border border-white/20 opacity-90 group-hover:opacity-100 flex items-center space-x-1 shadow">
+          <span>🔍 Click to expand full screen</span>
+        </div>
+      </div>
+
+      <div class="p-6 rounded-2xl border border-[var(--border)] bg-[var(--card)] space-y-4">
+        <div class="bg-slate-950 text-slate-200 rounded-xl p-4 text-xs font-mono border border-slate-800 space-y-2">
+          <div class="text-slate-500 pb-1 mb-1 border-b border-slate-800 font-bold">// azure-pipelines.yml</div>
+<pre><code>trigger:
+  branches:
+    include: [ main ]
+
+jobs:
+- job: Validate_TMDL_and_Deploy
+  pool: vmImage: 'ubuntu-latest'
+  steps:
+  - task: UsePythonVersion@0
+    inputs: { versionSpec: '3.10' }
+  - script: npx -y @microsoft/powerbi-modeling-mcp --validate ./RetailSales.pbip
+    displayName: 'Validate TMDL Syntax'
+  - script: TabularEditor.exe ./RetailSales.Dataset/definition -BPA -BPAOUT ./bpa-results.json
+    displayName: 'Tabular Editor Best Practice Analyzer (BPA)'</code></pre>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 15: FABRIC DEPLOYMENT PIPELINES (DEV -> TEST -> PROD) -->
+    <section class="slide hidden slide-enter space-y-6" id="slide-15">
+      <div class="border-b border-[var(--border)] pb-4">
+        <div class="text-xs font-bold uppercase tracking-wider text-emerald-500">Environment Promotion</div>
+        <h2 class="text-3xl font-bold text-[var(--foreground)]">Fabric Deployment Pipelines (Dev ➔ Test ➔ Prod)</h2>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="p-6 rounded-2xl border border-blue-500/30 bg-blue-500/5 space-y-3">
+          <span class="text-xs font-bold px-2 py-1 bg-blue-500/20 text-blue-500 rounded">DEVELOPMENT</span>
+          <h4 class="font-bold text-base">Dev Workspace</h4>
+          <p class="text-xs text-[var(--muted-foreground)]">Connected to Git `dev` or feature branch. Used by BI engineers & AI agents for active TMDL authoring.</p>
+        </div>
+
+        <div class="p-6 rounded-2xl border border-amber-500/30 bg-amber-500/5 space-y-3">
+          <span class="text-xs font-bold px-2 py-1 bg-amber-500/20 text-amber-500 rounded">STAGING / TEST</span>
+          <h4 class="font-bold text-base">Test Workspace</h4>
+          <p class="text-xs text-[var(--muted-foreground)]">Connected to Git `main` branch. Runs automated regression testing and UAT over full data sets.</p>
+        </div>
+
+        <div class="p-6 rounded-2xl border border-emerald-500/30 bg-emerald-500/5 space-y-3">
+          <span class="text-xs font-bold px-2 py-1 bg-emerald-500/20 text-emerald-500 rounded">PRODUCTION</span>
+          <h4 class="font-bold text-base">Prod Workspace</h4>
+          <p class="text-xs text-[var(--muted-foreground)]">Locked production semantic model serving business reports & Fabric Data Agents with zero downtime.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 16: INTERACTIVE MCP PROMPT SIMULATOR -->
+    <section class="slide hidden slide-enter space-y-6" id="slide-16">
+      <div class="border-b border-[var(--border)] pb-4">
+        <div class="text-xs font-bold uppercase tracking-wider text-purple-500">Interactive Demo</div>
+        <h2 class="text-3xl font-bold text-[var(--foreground)]">Live Agentic Prompt Simulator</h2>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-6">
+        <div class="md:col-span-5 p-5 rounded-2xl border border-[var(--border)] bg-[var(--card)] space-y-3">
+          <label class="text-xs font-bold text-[var(--foreground)]">Select Prompt Template:</label>
+          <select id="prompt-select" onchange="loadPrompt()" class="w-full text-xs p-2.5 rounded-lg border border-[var(--border)] bg-[var(--background)] text-[var(--foreground)]">
+            <option value="1">Create YoY Sales Growth % Measure</option>
+            <option value="2">Auto-Document FactSales TMDL</option>
+            <option value="3">Cross-Model Measure Copy</option>
+          </select>
+
+          <textarea id="prompt-text" rows="5" class="w-full text-xs p-3 rounded-lg border border-[var(--border)] bg-[var(--background)] font-mono text-[var(--foreground)]" readonly></textarea>
+
+          <button onclick="runSimulation()" class="w-full py-2.5 rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs transition flex items-center justify-center space-x-2">
+            <span>Execute via Microsoft Power BI MCP</span>
+          </button>
+        </div>
+
+        <div class="md:col-span-7 bg-slate-950 text-slate-100 rounded-xl p-4 text-xs font-mono border border-slate-800 flex flex-col justify-between overflow-x-auto shadow-inner">
+          <div>
+            <div class="text-slate-500 pb-2 border-b border-slate-800 mb-2">Simulated TMDL Output Stream</div>
+            <pre id="sim-output"><code>// Click execute to view real-time TMDL modifications...</code></pre>
+          </div>
+          <div id="sim-status" class="text-emerald-400 text-[10px] mt-2 hidden">✓ Measure successfully appended to SalesMetrics.tmdl</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 17: REPEATABLE BLUEPRINT -->
+    <section class="slide hidden slide-enter space-y-6" id="slide-17">
+      <div class="border-b border-[var(--border)] pb-4">
+        <div class="text-xs font-bold uppercase tracking-wider text-emerald-500">Summary Blueprint</div>
+        <h2 class="text-3xl font-bold text-[var(--foreground)]">The One Repeatable Pattern</h2>
+      </div>
+
+      <div class="relative group cursor-pointer rounded-xl overflow-hidden border border-[var(--border)] shadow-md my-2" onclick="openLightbox('images/ecosystem_blueprint.jpg', 'End-to-End Enterprise Semantic Model Development Blueprint')">
+        <img src="images/ecosystem_blueprint.jpg" alt="Ecosystem Blueprint Architecture" class="w-full h-auto object-cover group-hover:scale-[1.01] transition duration-300">
+        <div class="absolute bottom-2 right-2 px-2.5 py-1 bg-slate-950/80 backdrop-blur-sm text-white text-[10px] font-bold rounded-lg border border-white/20 opacity-90 group-hover:opacity-100 flex items-center space-x-1 shadow">
+          <span>🔍 Click to expand full screen</span>
+        </div>
+      </div>
+
+      <div class="p-6 rounded-2xl border border-blue-500/30 bg-gradient-to-r from-blue-500/5 via-emerald-500/5 to-purple-500/5 text-center space-y-4">
+        <div class="flex flex-col md:flex-row items-center justify-center space-y-4 md:space-y-0 md:space-x-4 text-xs font-bold">
+          <div class="px-3 py-1.5 rounded-xl border border-blue-500/30 bg-blue-500/10 text-blue-500">1. Semantic Model in Git (PBIP/TMDL)</div>
+          <span class="text-[var(--muted-foreground)]">➔</span>
+          <div class="px-3 py-1.5 rounded-xl border border-purple-500/30 bg-purple-500/10 text-purple-500">2. Agent as Co-Developer (Power BI MCP)</div>
+          <span class="text-[var(--muted-foreground)]">➔</span>
+          <div class="px-3 py-1.5 rounded-xl border border-emerald-500/30 bg-emerald-500/10 text-emerald-500">3. PR Review Gate & Azure Pipelines</div>
+          <span class="text-[var(--muted-foreground)]">➔</span>
+          <div class="px-3 py-1.5 rounded-xl border border-amber-500/30 bg-amber-500/10 text-amber-500">4. Deploy to Fabric</div>
+        </div>
+
+        <p class="text-xs text-[var(--muted-foreground)] max-w-2xl mx-auto">
+          Take this exact workflow back to your enterprise engineering team on your next working day.
+        </p>
+      </div>
+    </section>
+
+    <!-- SLIDE 18: OFFICIAL REFERENCE LINKS & RESOURCES -->
+    <section class="slide hidden slide-enter space-y-6" id="slide-18">
+      <div class="border-b border-[var(--border)] pb-4">
+        <div class="text-xs font-bold uppercase tracking-wider text-blue-500">Official Microsoft Resources</div>
+        <h2 class="text-3xl font-bold text-[var(--foreground)]">Developer & Architecture References</h2>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <!-- GROUP 1: CORE MCP & DEVELOPER TOOLS -->
+        <div class="p-4 rounded-xl border border-blue-500/20 bg-blue-500/5 space-y-2">
+          <div class="flex items-center space-x-2 text-blue-500 font-bold text-sm">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/></svg>
+            <span>MCP & Authoring Agent Tools</span>
+          </div>
+          <ul class="space-y-2 text-xs">
+            <li>
+              <a href="https://github.com/microsoft/powerbi-modeling-mcp" target="_blank" rel="noopener noreferrer" class="text-blue-400 font-semibold hover:underline flex items-center space-x-1">
+                <span>Power BI Modeling MCP Server GitHub Repo</span>
+                <span class="text-[10px]">↗</span>
+              </a>
+              <p class="text-[var(--muted-foreground)] text-[11px]">Official Microsoft open-source MCP server implementation (`@microsoft/powerbi-modeling-mcp`).</p>
+            </li>
+            <li>
+              <a href="https://learn.microsoft.com/en-us/power-bi/developer/mcp/mcp-servers-overview" target="_blank" rel="noopener noreferrer" class="text-blue-400 font-semibold hover:underline flex items-center space-x-1">
+                <span>Power BI MCP Servers Overview (MS Learn)</span>
+                <span class="text-[10px]">↗</span>
+              </a>
+              <p class="text-[var(--muted-foreground)] text-[11px]">Conceptual documentation for integrating MCP servers into VS Code and AI tools.</p>
+            </li>
+          </ul>
+        </div>
+
+        <!-- GROUP 2: PBIP & TMDL SPECIFICATIONS -->
+        <div class="p-4 rounded-xl border border-purple-500/20 bg-purple-500/5 space-y-2">
+          <div class="flex items-center space-x-2 text-purple-500 font-bold text-sm">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+            <span>PBIP Projects & TMDL Language</span>
+          </div>
+          <ul class="space-y-2 text-xs">
+            <li>
+              <a href="https://learn.microsoft.com/en-us/power-bi/developer/projects/projects-overview" target="_blank" rel="noopener noreferrer" class="text-purple-400 font-semibold hover:underline flex items-center space-x-1">
+                <span>Power BI Projects (.pbip) Developer Overview</span>
+                <span class="text-[10px]">↗</span>
+              </a>
+              <p class="text-[var(--muted-foreground)] text-[11px]">Developer specs for folder hierarchy, `$schema` references, and `.pbir`/`.pbism` format.</p>
+            </li>
+            <li>
+              <a href="https://learn.microsoft.com/en-us/analysis-services/tmdl/tmdl-overview" target="_blank" rel="noopener noreferrer" class="text-purple-400 font-semibold hover:underline flex items-center space-x-1">
+                <span>Tabular Model Definition Language (TMDL) Overview</span>
+                <span class="text-[10px]">↗</span>
+              </a>
+              <p class="text-[var(--muted-foreground)] text-[11px]">Syntax reference for TOM objects, multi-line measures, annotations, and formatting.</p>
+            </li>
+          </ul>
+        </div>
+
+        <!-- GROUP 3: FABRIC GIT & CI/CD PIPELINES -->
+        <div class="p-4 rounded-xl border border-emerald-500/20 bg-emerald-500/5 space-y-2">
+          <div class="flex items-center space-x-2 text-emerald-500 font-bold text-sm">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"/></svg>
+            <span>Fabric Git Integration & CI/CD</span>
+          </div>
+          <ul class="space-y-2 text-xs">
+            <li>
+              <a href="https://learn.microsoft.com/en-us/fabric/cicd/git-integration/intro-to-git-integration" target="_blank" rel="noopener noreferrer" class="text-emerald-400 font-semibold hover:underline flex items-center space-x-1">
+                <span>Microsoft Fabric Git Integration Intro</span>
+                <span class="text-[10px]">↗</span>
+              </a>
+              <p class="text-[var(--muted-foreground)] text-[11px]">Syncing PBIP git branches directly with Microsoft Fabric workspaces in Azure DevOps.</p>
+            </li>
+            <li>
+              <a href="https://learn.microsoft.com/en-us/power-bi/transform-model/tmdl-view" target="_blank" rel="noopener noreferrer" class="text-emerald-400 font-semibold hover:underline flex items-center space-x-1">
+                <span>Use TMDL View in Power BI Desktop</span>
+                <span class="text-[10px]">↗</span>
+              </a>
+              <p class="text-[var(--muted-foreground)] text-[11px]">Guide for viewing and editing TMDL code natively inside Power BI Desktop.</p>
+            </li>
+          </ul>
+        </div>
+
+        <!-- GROUP 4: FABRIC DATA AGENTS & TOM ARCHITECTURE -->
+        <div class="p-4 rounded-xl border border-amber-500/20 bg-amber-500/5 space-y-2">
+          <div class="flex items-center space-x-2 text-amber-500 font-bold text-sm">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+            <span>Fabric Data Agents & TOM API</span>
+          </div>
+          <ul class="space-y-2 text-xs">
+            <li>
+              <a href="https://learn.microsoft.com/en-us/fabric/get-started/copilot-fabric-overview" target="_blank" rel="noopener noreferrer" class="text-amber-400 font-semibold hover:underline flex items-center space-x-1">
+                <span>Microsoft Fabric Data Agents & Copilot Overview</span>
+                <span class="text-[10px]">↗</span>
+              </a>
+              <p class="text-[var(--muted-foreground)] text-[11px]">How AI data agents consume enriched TMDL semantic models for natural language Q&A.</p>
+            </li>
+            <li>
+              <a href="https://learn.microsoft.com/en-us/analysis-services/tom/introduction-to-tabular-object-model-tom-in-analysis-services-amo" target="_blank" rel="noopener noreferrer" class="text-amber-400 font-semibold hover:underline flex items-center space-x-1">
+                <span>Tabular Object Model (TOM) Developer Reference</span>
+                <span class="text-[10px]">↗</span>
+              </a>
+              <p class="text-[var(--muted-foreground)] text-[11px]">C# TOM API reference underlying Power BI modeling operations.</p>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- TABLE OF CONTENTS MODAL -->
+  <div id="toc-modal" class="fixed inset-0 bg-black/75 backdrop-blur-md z-50 hidden flex items-center justify-center p-4">
+    <div class="bg-[var(--card)] border border-[var(--border)] text-[var(--foreground)] rounded-2xl max-w-lg w-full p-6 space-y-4 max-h-[80vh] overflow-y-auto shadow-2xl transition-colors duration-200">
+      <div class="flex justify-between items-center border-b border-[var(--border)] pb-3">
+        <h3 class="font-bold text-base text-[var(--foreground)]">Table of Contents</h3>
+        <button onclick="toggleToc()" class="text-[var(--muted-foreground)] hover:text-[var(--foreground)] font-bold px-2 py-1 rounded hover:bg-[var(--accent)]">✕</button>
+      </div>
+      <div id="toc-list" class="space-y-1 text-xs"></div>
+    </div>
+  </div>
+
+  <!-- LIGHTBOX IMAGE FULLSCREEN MODAL -->
+  <div id="lightbox-modal" class="fixed inset-0 bg-slate-950/90 backdrop-blur-lg z-[100] hidden flex flex-col items-center justify-center p-4 md:p-8 cursor-zoom-out" onclick="closeLightbox()">
+    <div class="relative max-w-7xl w-full max-h-[92vh] flex flex-col items-center justify-center space-y-3" onclick="event.stopPropagation()">
+      <div class="flex justify-between items-center w-full px-2 text-white">
+        <span id="lightbox-title" class="text-xs md:text-sm font-bold tracking-wide text-slate-200">High Resolution Presentation Visual</span>
+        <button onclick="closeLightbox()" class="text-xs px-3 py-1.5 rounded-lg bg-white/10 hover:bg-white/20 text-white font-bold transition flex items-center space-x-1 border border-white/20">
+          <span>Close (Esc)</span>
+          <span>✕</span>
+        </button>
+      </div>
+      <div class="w-full max-h-[85vh] flex items-center justify-center overflow-auto rounded-2xl border border-slate-700 bg-slate-950/90 shadow-2xl p-2">
+        <img id="lightbox-img" src="" alt="Full Screen Visual" class="max-w-full max-h-[82vh] object-contain rounded-lg">
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let currentSlide = 1;
+    const totalSlides = 18;
+
+    const mappings = {
+      relationships: {
+        badge: "RetailSales.Dataset/definition/relationships.tmdl",
+        badgeColor: "bg-blue-500/10 text-blue-500",
+        title: "Model View ➔ Drag & Drop Relationships",
+        desc: "In PBIX, relationships are drawn visually on a canvas. In TMDL, they are listed textually in `relationships.tmdl` with explicit from/to columns and cross-filtering rules.",
+        code: `relationship Rel_FactSales_DimCustomer\n\tfromColumn: FactSales.CustomerID\n\ttoColumn: DimCustomer.CustomerID\n\nrelationship Rel_FactSales_DimDate\n\tfromColumn: FactSales.OrderDate\n\ttoColumn: DimDate.Date`
+      },
+      measure: {
+        badge: "RetailSales.Dataset/definition/tables/SalesMetrics.tmdl",
+        badgeColor: "bg-purple-500/10 text-purple-500",
+        title: "Fields Pane ➔ Right Click Table ➔ New Measure",
+        desc: "Measures are not hidden inside binary formula bars. They live as clean multi-line text blocks inside their owner table's `.tmdl` file, with format strings and display folders.",
+        code: `/// YoY Growth % calculated with divide-by-zero protection\nmeasure 'YoY Sales Growth %' = \n\t\tVAR CurrentSales = [Total Sales]\n\t\tVAR PriorSales = CALCULATE([Total Sales], SAMEPERIODLASTYEAR('DimDate'[Date]))\n\t\tRETURN\n\t\t\tDIVIDE(CurrentSales - PriorSales, PriorSales, 0)\n\tformatString: 0.00%\n\tdisplayFolder: Time Intelligence`
+      },
+      mquery: {
+        badge: "RetailSales.Dataset/definition/tables/FactSales.tmdl",
+        badgeColor: "bg-emerald-500/10 text-emerald-500",
+        title: "Transform Data ➔ Power Query M Editor",
+        desc: "Power Query M source queries are embedded directly inside each table's `.tmdl` file under the `partition` definition.",
+        code: `partition FactSales-Partition = m\n\tmode: import\n\tsource = \n\t\tlet\n\t\t    Source = Csv.Document(File.Contents("Data/FactSales.csv"), [Delimiter=",", Columns=8]),\n\t\t    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true])\n\t\tin\n\t\t    #"Promoted Headers"`
+      },
+      rls: {
+        badge: "RetailSales.Dataset/definition/roles/RegionalManager.tmdl",
+        badgeColor: "bg-amber-500/10 text-amber-500",
+        title: "Modeling Tab ➔ Manage Roles (Row-Level Security)",
+        desc: "Row-Level Security (RLS) rules are isolated into separate `.tmdl` role files under `definition/roles/`.",
+        code: `role RegionalManager\n\tlineageTag: 77777777-8888-9999-0000-111111111111\n\n\ttablePermission DimCustomer\n\t\tfilterExpression: DimCustomer[Country] = "United Kingdom"`
+      },
+      datetable: {
+        badge: "RetailSales.Dataset/definition/tables/DimDate.tmdl",
+        badgeColor: "bg-indigo-500/10 text-indigo-500",
+        title: "Modeling Tab ➔ Mark as Date Table",
+        desc: "Marking a table as a Date Table is set via `dataCategory: Time` and `isKey` annotations on the date column in TMDL.",
+        code: `table DimDate\n\tdataCategory: Time\n\n\tcolumn Date\n\t\tdataType: dateTime\n\t\tisKey\n\t\tsourceColumn: Date`
+      }
+    };
+
+    const fileDetails = {
+      pbip: {
+        badge: "RetailSales.pbip",
+        badgeColor: "bg-blue-500/10 text-blue-500",
+        title: "Root Project Pointer File",
+        desc: "Entry point file opened by Power BI Desktop. Contains JSON configuration pointing to the report artifact folder path and user recovery settings.",
+        spec: `{\n  "$schema": "https://developer.microsoft.com/json-schemas/fabric/pbip/pbipProperties/1.0.0/schema.json",\n  "version": "1.0",\n  "artifacts": [ { "report": { "path": "RetailSales.Report" } } ]\n}`
+      },
+      report: {
+        badge: "RetailSales.Report/",
+        badgeColor: "bg-purple-500/10 text-purple-500",
+        title: "Report Definition Folder",
+        desc: "Contains report layout, visuals JSON tree, custom themes, and pointer reference to the underlying semantic model dataset.",
+        spec: `RetailSales.Report/\n├── definition.pbir\n├── definition/\n│   └── report.json\n└── item.config.json`
+      },
+      pbir: {
+        badge: "definition.pbir",
+        badgeColor: "bg-purple-500/10 text-purple-500",
+        title: "Report Pointer Specification",
+        desc: "Links the report to its semantic model using a relative directory path (`../RetailSales.Dataset`) or a Fabric workspace live connection GUID.",
+        spec: `{\n  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definitionProperties/1.0.0/schema.json",\n  "version": "1.0",\n  "datasetReference": { "byPath": { "path": "../RetailSales.Dataset" } }\n}`
+      },
+      report_json: {
+        badge: "definition/report.json",
+        badgeColor: "bg-purple-500/10 text-purple-500",
+        title: "Report Theme & Section Specs",
+        desc: "Defines active report section pages, color palette theme collections (`CY24SU02`), and visual page properties.",
+        spec: `{\n  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/report/1.0.0/schema.json",\n  "themeCollection": { "baseTheme": { "name": "CY24SU02", "version": "5.54" } }\n}`
+      },
+      item_config: {
+        badge: "item.config.json",
+        badgeColor: "bg-amber-500/10 text-amber-500",
+        title: "Fabric Artifact Identity",
+        desc: "Stores a persistent GUID `logicalId` for reports and semantic models, allowing Fabric Git integration to track items across Dev, Test, and Prod workspaces.",
+        spec: `{\n  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/config/1.0.0/schema.json",\n  "version": "1.0",\n  "logicalId": "00000000-0000-0000-0000-000000000001"\n}`
+      },
+      dataset: {
+        badge: "RetailSales.Dataset/",
+        badgeColor: "bg-emerald-500/10 text-emerald-500",
+        title: "Semantic Model Folder",
+        desc: "Contains all table schemas, DAX measures, column data types, partitions, relationships, and model settings.",
+        spec: `RetailSales.Dataset/\n├── definition.pbism\n├── model.bim\n├── item.config.json\n└── definition/\n    ├── model.tmdl\n    ├── relationships.tmdl\n    └── tables/*.tmdl`
+      },
+      pbism: {
+        badge: "definition.pbism",
+        badgeColor: "bg-emerald-500/10 text-emerald-500",
+        title: "Semantic Model Pointer",
+        desc: "Declares the dataset artifact boundaries in Microsoft Fabric (`item/semanticModel/definitionProperties/1.0.0/schema.json`).",
+        spec: `{\n  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/semanticModel/definitionProperties/1.0.0/schema.json",\n  "version": "1.0"\n}`
+      },
+      bim: {
+        badge: "model.bim",
+        badgeColor: "bg-emerald-500/10 text-emerald-500",
+        title: "TMSL JSON Model Definition",
+        desc: "Root Tabular Model Scripting Language (TMSL) JSON schema. Power BI Desktop syncs `model.bim` bi-directionally with TMDL `.tmdl` files.",
+        spec: `{\n  "name": "Model",\n  "compatibilityLevel": 1567,\n  "model": { "tables": [...], "relationships": [...] }\n}`
+      },
+      tmdl: {
+        badge: "definition/tables/*.tmdl",
+        badgeColor: "bg-emerald-500/10 text-emerald-500",
+        title: "Plain-Text TMDL Files",
+        desc: "Individual plain-text files for each table. Contains measures, columns, partitions, display folders, and triple-slash (`///`) documentation comments.",
+        spec: `table FactSales\n\t/// Sum of sales revenue\n\tmeasure 'Total Sales' = SUM(FactSales[SalesAmount])\n\t\tformatString: $#,0.00`
+      },
+      cache: {
+        badge: ".cache/ & .pbi/",
+        badgeColor: "bg-red-500/10 text-red-500",
+        title: "Local Cache & User Settings (DO NOT COMMIT)",
+        desc: "Contains `cache.abf` (local Analysis Services engine data cache) and `localSettings.json`. Must be excluded in `.gitignore` to prevent repository bloat and data leakage.",
+        spec: `# Must be in .gitignore\n.cache/\n.pbi/\ncache.abf\nlocalSettings.json`
+      }
+    };
+
+    const prompts = {
+      1: "Create a `YoY Sales Growth %` measure in `SalesMetrics` table using `FactSales[SalesAmount]` and `DimDate[Date]`. Wrap division in DIVIDE safety fallback 0.",
+      2: "Scan `FactSales.tmdl` columns. Add business English `///` description comments above TransactionID, OrderDate, CustomerID, and SalesAmount.",
+      3: "Extract standard Time Intelligence calculation group from reference library and port measures to `SalesMetrics.tmdl`."
+    };
+
+    const simOutputs = {
+      1: `table SalesMetrics\n\t/// Year-over-Year Sales Growth percentage calculation\n\tmeasure 'YoY Sales Growth %' = \n\t\t\tVAR CurrentSales = SUM(FactSales[SalesAmount])\n\t\t\tVAR PriorSales = CALCULATE(SUM(FactSales[SalesAmount]), SAMEPERIODLASTYEAR('DimDate'[Date]))\n\t\t\tRETURN\n\t\t\t\tDIVIDE(CurrentSales - PriorSales, PriorSales, 0)\n\t\tformatString: 0.00%\n\t\tdisplayFolder: Time Intelligence`,
+      2: `table FactSales\n\t/// Unique transaction identifier for retail sales\n\tcolumn TransactionID\n\t\tdataType: string\n\t/// Date when customer order was placed\n\tcolumn OrderDate\n\t\tdataType: dateTime`,
+      3: `// Copying 2 measures from CorporateKPIs.pbip to RetailSales.pbip...\n✓ [Sales YTD] copied to SalesMetrics.tmdl\n✓ [YoY Sales Growth %] copied to SalesMetrics.tmdl`
+    };
+
+    function showMapping(key) {
+      const info = mappings[key];
+      if (!info) return;
+      document.getElementById('map-badge').className = `inline-block text-xs font-mono font-bold px-2.5 py-1 rounded ${info.badgeColor} mb-2`;
+      document.getElementById('map-badge').innerText = info.badge;
+      document.getElementById('map-title').innerText = info.title;
+      document.getElementById('map-desc').innerText = info.desc;
+      document.getElementById('map-code').innerHTML = `<code>${info.code}</code>`;
+    }
+
+    function showFileDetails(key) {
+      const info = fileDetails[key];
+      if (!info) return;
+      document.getElementById('file-title-badge').className = `inline-block text-xs font-mono font-bold px-2.5 py-1 rounded ${info.badgeColor} mb-2`;
+      document.getElementById('file-title-badge').innerText = info.badge;
+      document.getElementById('file-title').innerText = info.title;
+      document.getElementById('file-desc').innerText = info.desc;
+      document.getElementById('file-spec').innerHTML = `<code>${info.spec}</code>`;
+    }
+
+    function updateSlide() {
+      document.querySelectorAll('.slide').forEach((el, idx) => {
+        if (idx + 1 === currentSlide) {
+          el.classList.remove('hidden');
+        } else {
+          el.classList.add('hidden');
+        }
+      });
+
+      document.getElementById('slide-number').innerText = `Slide ${currentSlide} of ${totalSlides}`;
+      document.getElementById('progress-bar').style.width = `${(currentSlide / totalSlides) * 100}%`;
+
+      document.getElementById('prev-btn').disabled = (currentSlide === 1);
+      document.getElementById('next-btn').disabled = (currentSlide === totalSlides);
+    }
+
+    function prevSlide() { if (currentSlide > 1) { currentSlide--; updateSlide(); } }
+    function nextSlide() { if (currentSlide < totalSlides) { currentSlide++; updateSlide(); } }
+
+    function goToSlide(num) {
+      currentSlide = num;
+      updateSlide();
+      toggleToc();
+    }
+
+    function toggleToc() {
+      const modal = document.getElementById('toc-modal');
+      modal.classList.toggle('hidden');
+      if (!modal.classList.contains('hidden')) {
+        renderToc();
+      }
+    }
+
+    function renderToc() {
+      const list = document.getElementById('toc-list');
+      list.innerHTML = '';
+      const slideTitles = [
+        "1. Title & Introduction",
+        "2. The PBIX Bottleneck",
+        "3. PBIP Directory & File Hierarchy",
+        "4. PBIX Desktop GUI vs. PBIP TMDL Parallel Map",
+        "5. PBIP JSON Schemas & Specs",
+        "6. TMDL Syntax Anatomy & Triple-Slash Comments",
+        "7. The .cache Aspect & .gitignore Rules",
+        "8. The Dual-Agent Continuum",
+        "9. Microsoft Power BI MCP Server",
+        "10. Fabric Data Agent Readiness Calculator",
+        "11. Live Workshop Hands-On Workflow",
+        "12. Headless BI: Platform Independence",
+        "13. Fabric Git Integration & Azure DevOps",
+        "14. Azure DevOps CI/CD Pipelines for Power BI",
+        "15. Fabric Deployment Pipelines (Dev -> Test -> Prod)",
+        "16. Interactive Agent Prompt Simulator",
+        "17. Summary Blueprint & Takeaways",
+        "18. Official Reference Links & Resources"
+      ];
+
+      slideTitles.forEach((title, idx) => {
+        const item = document.createElement('div');
+        item.className = `p-2.5 rounded-lg cursor-pointer transition flex items-center justify-between font-medium ${idx + 1 === currentSlide ? 'bg-blue-500/15 text-blue-600 dark:text-blue-400 font-bold border border-blue-500/30' : 'hover:bg-[var(--accent)] text-[var(--foreground)]'}`;
+        item.innerText = title;
+        item.onclick = () => goToSlide(idx + 1);
+        list.appendChild(item);
+      });
+    }
+
+    function calcReadiness() {
+      let score = 0;
+      if (document.getElementById('chk-desc').checked) score += 30;
+      if (document.getElementById('chk-names').checked) score += 25;
+      if (document.getElementById('chk-hidden').checked) score += 25;
+      if (document.getElementById('chk-time').checked) score += 20;
+
+      const scoreVal = document.getElementById('score-val');
+      const scoreStatus = document.getElementById('score-status');
+
+      scoreVal.innerText = `${score}%`;
+      if (score >= 80) {
+        scoreVal.className = "text-5xl font-black text-emerald-500";
+        scoreStatus.className = "text-xs px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-500 font-bold";
+        scoreStatus.innerText = "Excellent - Fabric Agent Ready";
+      } else if (score >= 50) {
+        scoreVal.className = "text-5xl font-black text-amber-500";
+        scoreStatus.className = "text-xs px-3 py-1 rounded-full bg-amber-500/10 text-amber-500 font-bold";
+        scoreStatus.innerText = "Good - Minor Metadata Gaps";
+      } else {
+        scoreVal.className = "text-5xl font-black text-red-500";
+        scoreStatus.className = "text-xs px-3 py-1 rounded-full bg-red-500/10 text-red-500 font-bold";
+        scoreStatus.innerText = "Risk - Fabric Agent Will Hallucinate";
+      }
+    }
+
+    function loadPrompt() {
+      const val = document.getElementById('prompt-select').value;
+      document.getElementById('prompt-text').value = prompts[val];
+      document.getElementById('sim-output').innerHTML = "<code>// Click execute to view real-time TMDL modifications...</code>";
+      document.getElementById('sim-status').classList.add('hidden');
+    }
+
+    function runSimulation() {
+      const val = document.getElementById('prompt-select').value;
+      document.getElementById('sim-output').innerHTML = `<code>${simOutputs[val]}</code>`;
+      document.getElementById('sim-status').classList.remove('hidden');
+    }
+
+    function toggleTheme() {
+      const body = document.body;
+      const isLight = body.classList.contains('light');
+      const themeBtn = document.getElementById('theme-btn');
+      if (isLight) {
+        body.classList.remove('light');
+        body.classList.add('dark');
+        themeBtn.innerHTML = '<span>☀️ Light Mode</span>';
+        localStorage.setItem('theme', 'dark');
+      } else {
+        body.classList.remove('dark');
+        body.classList.add('light');
+        themeBtn.innerHTML = '<span>🌙 Dark Mode</span>';
+        localStorage.setItem('theme', 'light');
+      }
+    }
+
+    function openLightbox(src, title) {
+      const modal = document.getElementById('lightbox-modal');
+      const img = document.getElementById('lightbox-img');
+      const titleEl = document.getElementById('lightbox-title');
+      img.src = src;
+      titleEl.innerText = title || 'Presentation Visual (High Resolution)';
+      modal.classList.remove('hidden');
+    }
+
+    function closeLightbox() {
+      const modal = document.getElementById('lightbox-modal');
+      modal.classList.add('hidden');
+    }
+
+    // KEYBOARD NAVIGATION
+    document.addEventListener('keydown', (e) => {
+      const lightbox = document.getElementById('lightbox-modal');
+      const tocModal = document.getElementById('toc-modal');
+      if (e.key === 'Escape') {
+        if (!lightbox.classList.contains('hidden')) { closeLightbox(); return; }
+        if (!tocModal.classList.contains('hidden')) { toggleToc(); return; }
+      }
+      if (!lightbox.classList.contains('hidden') || !tocModal.classList.contains('hidden')) return;
+      if (e.key === 'ArrowRight' || e.key === 'Space') nextSlide();
+      if (e.key === 'ArrowLeft') prevSlide();
+    });
+
+    // INIT
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'light') {
+      document.body.classList.add('light');
+      document.getElementById('theme-btn').innerHTML = '<span>🌙 Dark Mode</span>';
+    } else {
+      document.body.classList.add('dark');
+      document.getElementById('theme-btn').innerHTML = '<span>☀️ Light Mode</span>';
+    }
+
+    loadPrompt();
+    updateSlide();
+  </script>
+</body>
+</html>

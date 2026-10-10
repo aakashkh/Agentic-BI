@@ -1,0 +1,43 @@
+table DimProduct
+	lineageTag: 3b27925f-5d04-4ef0-a868-1893e2312d24
+
+	column ProductID
+		dataType: string
+		lineageTag: 81eebdc9-9eed-4602-bfcd-0a806b7c69f2
+		sourceColumn: ProductID
+
+	column ProductName
+		dataType: string
+		lineageTag: 8d53c4f3-0d25-4230-85f1-0a8e5b4bdd20
+		sourceColumn: ProductName
+
+	column ProductCategory
+		dataType: string
+		lineageTag: dfb2023a-5523-46ac-9963-99b888d61a8e
+		sourceColumn: ProductCategory
+
+	column SubCategory
+		dataType: string
+		lineageTag: c5b51efb-d1b2-429c-95ad-916e8408720e
+		sourceColumn: SubCategory
+
+	column UnitPrice
+		dataType: double
+		lineageTag: 8322c657-d9c2-4d22-b6e8-472bdc795b97
+		summarizeBy: none
+		sourceColumn: UnitPrice
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition DimProduct-Partition = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents("c:\\Users\\aakashkhandelwal\\Downloads\\Learning\\Agentic BI\\03-Demo-Project\\Data\\DimProduct.csv"), [Delimiter=",", Columns=5, Encoding=65001, QuoteStyle=QuoteStyle.None]),
+				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"ProductID", type text}, {"ProductName", type text}, {"ProductCategory", type text}, {"SubCategory", type text}, {"UnitPrice", type number}})
+				in
+				    #"Changed Type"
+

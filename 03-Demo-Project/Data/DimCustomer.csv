@@ -1,0 +1,201 @@
+CustomerID,CustomerName,CustomerSegment,Country
+CUST-0001,Morgan Smith,Enterprise,United Kingdom
+CUST-0002,Priya Brown,Consumer,Australia
+CUST-0003,Morgan Schneider,Enterprise,India
+CUST-0004,Taylor Patel,SMB,USA
+CUST-0005,Alex Johnson,Consumer,Canada
+CUST-0006,Alex Khandelwal,Consumer,Australia
+CUST-0007,Noah Brown,SMB,India
+CUST-0008,Rahul Smith,Consumer,Australia
+CUST-0009,Noah Garcia,SMB,Canada
+CUST-0010,Avery Garcia,Consumer,USA
+CUST-0011,Sophia Johnson,SMB,United Kingdom
+CUST-0012,Rahul Smith,Enterprise,Germany
+CUST-0013,Morgan Miller,Consumer,India
+CUST-0014,Lukas Schneider,Enterprise,United Kingdom
+CUST-0015,Avery Wilson,Consumer,USA
+CUST-0016,Priya Jones,Consumer,Canada
+CUST-0017,Morgan Miller,SMB,Germany
+CUST-0018,Liam Williams,SMB,United Kingdom
+CUST-0019,Avery Schneider,SMB,Australia
+CUST-0020,Taylor Patel,Enterprise,Canada
+CUST-0021,Priya Williams,SMB,Germany
+CUST-0022,Rahul Schneider,Enterprise,India
+CUST-0023,Priya Schneider,SMB,USA
+CUST-0024,Priya Smith,SMB,Germany
+CUST-0025,Rahul Johnson,Consumer,India
+CUST-0026,Emma Brown,Enterprise,Germany
+CUST-0027,Sophia Schneider,SMB,Canada
+CUST-0028,Rahul Williams,Consumer,Australia
+CUST-0029,Rahul Wilson,Enterprise,Germany
+CUST-0030,Sophia Garcia,Consumer,Canada
+CUST-0031,Ethan Johnson,Consumer,USA
+CUST-0032,Casey Schneider,Consumer,Australia
+CUST-0033,Noah Patel,Consumer,Germany
+CUST-0034,Sophia Patel,SMB,India
+CUST-0035,Rahul Khandelwal,Consumer,Australia
+CUST-0036,Morgan Schneider,Enterprise,United Kingdom
+CUST-0037,Emma Johnson,SMB,Germany
+CUST-0038,Riley Davis,Consumer,Australia
+CUST-0039,Rahul Khandelwal,Consumer,India
+CUST-0040,Morgan Schneider,SMB,Australia
+CUST-0041,Avery Williams,SMB,Canada
+CUST-0042,Alex Patel,SMB,Germany
+CUST-0043,Alex Johnson,SMB,United Kingdom
+CUST-0044,Priya Smith,Consumer,India
+CUST-0045,Taylor Johnson,Enterprise,Germany
+CUST-0046,Taylor Khandelwal,Consumer,Canada
+CUST-0047,Ethan Khandelwal,Consumer,United Kingdom
+CUST-0048,Noah Brown,Enterprise,Australia
+CUST-0049,Avery Wilson,SMB,Germany
+CUST-0050,Liam Davis,Enterprise,Germany
+CUST-0051,Morgan Brown,Consumer,USA
+CUST-0052,Emma Smith,Enterprise,India
+CUST-0053,Priya Patel,Consumer,USA
+CUST-0054,Taylor Wilson,Enterprise,USA
+CUST-0055,Priya Johnson,Consumer,United Kingdom
+CUST-0056,Taylor Khandelwal,Consumer,United Kingdom
+CUST-0057,Ethan Brown,Enterprise,Canada
+CUST-0058,Ethan Brown,SMB,Germany
+CUST-0059,Avery Johnson,Consumer,Australia
+CUST-0060,Noah Garcia,SMB,Germany
+CUST-0061,Olivia Wilson,Consumer,Australia
+CUST-0062,Morgan Smith,SMB,Australia
+CUST-0063,Emma Johnson,Consumer,Canada
+CUST-0064,Avery Khandelwal,SMB,Canada
+CUST-0065,Noah Williams,SMB,Germany
+CUST-0066,Priya Johnson,SMB,India
+CUST-0067,Morgan Smith,Enterprise,India
+CUST-0068,Alex Johnson,Consumer,Canada
+CUST-0069,Noah Davis,SMB,Canada
+CUST-0070,Sophia Smith,Consumer,Germany
+CUST-0071,Alex Miller,SMB,Germany
+CUST-0072,Lukas Miller,Enterprise,Australia
+CUST-0073,Ethan Williams,Consumer,United Kingdom
+CUST-0074,Avery Smith,Enterprise,Australia
+CUST-0075,Jordan Wilson,SMB,USA
+CUST-0076,Jordan Patel,SMB,India
+CUST-0077,Riley Smith,Enterprise,USA
+CUST-0078,Riley Johnson,Enterprise,USA
+CUST-0079,Priya Miller,Consumer,India
+CUST-0080,Priya Patel,Enterprise,USA
+CUST-0081,Taylor Miller,Enterprise,India
+CUST-0082,Emma Jones,Consumer,Australia
+CUST-0083,Emma Brown,SMB,Germany
+CUST-0084,Casey Schneider,Enterprise,United Kingdom
+CUST-0085,Olivia Garcia,Consumer,USA
+CUST-0086,Olivia Patel,Enterprise,USA
+CUST-0087,Taylor Khandelwal,Consumer,India
+CUST-0088,Rahul Williams,SMB,USA
+CUST-0089,Priya Garcia,SMB,Canada
+CUST-0090,Olivia Khandelwal,Enterprise,United Kingdom
+CUST-0091,Alex Schneider,Enterprise,United Kingdom
+CUST-0092,Morgan Williams,SMB,USA
+CUST-0093,Morgan Wilson,Enterprise,Canada
+CUST-0094,Rahul Jones,Enterprise,Canada
+CUST-0095,Emma Brown,Enterprise,Australia
+CUST-0096,Rahul Khandelwal,SMB,United Kingdom
+CUST-0097,Jordan Johnson,Enterprise,Germany
+CUST-0098,Rahul Smith,Consumer,United Kingdom
+CUST-0099,Casey Schneider,SMB,Canada
+CUST-0100,Olivia Khandelwal,Enterprise,Germany
+CUST-0101,Alex Johnson,Consumer,Australia
+CUST-0102,Casey Khandelwal,Consumer,United Kingdom
+CUST-0103,Casey Miller,Consumer,USA
+CUST-0104,Lukas Garcia,Consumer,United Kingdom
+CUST-0105,Avery Schneider,Consumer,Australia
+CUST-0106,Morgan Garcia,Enterprise,Germany
+CUST-0107,Casey Brown,Consumer,Canada
+CUST-0108,Noah Smith,Consumer,Australia
+CUST-0109,Emma Miller,Enterprise,Australia
+CUST-0110,Priya Jones,Consumer,Australia
+CUST-0111,Morgan Miller,Consumer,Germany
+CUST-0112,Priya Brown,SMB,United Kingdom
+CUST-0113,Lukas Brown,Consumer,USA
+CUST-0114,Avery Miller,SMB,United Kingdom
+CUST-0115,Taylor Jones,SMB,Australia
+CUST-0116,Sophia Schneider,Enterprise,United Kingdom
+CUST-0117,Alex Johnson,SMB,Canada
+CUST-0118,Rahul Smith,Consumer,India
+CUST-0119,Noah Garcia,Enterprise,United Kingdom
+CUST-0120,Noah Patel,Enterprise,USA
+CUST-0121,Sophia Patel,Consumer,United Kingdom
+CUST-0122,Jordan Wilson,SMB,USA
+CUST-0123,Avery Garcia,SMB,USA
+CUST-0124,Emma Patel,SMB,Australia
+CUST-0125,Morgan Wilson,SMB,India
+CUST-0126,Lukas Schneider,SMB,United Kingdom
+CUST-0127,Sophia Wilson,SMB,India
+CUST-0128,Casey Brown,SMB,Australia
+CUST-0129,Sophia Schneider,Enterprise,Canada
+CUST-0130,Lukas Miller,Enterprise,USA
+CUST-0131,Lukas Jones,Consumer,Germany
+CUST-0132,Emma Davis,SMB,Germany
+CUST-0133,Avery Khandelwal,SMB,Australia
+CUST-0134,Riley Schneider,Consumer,United Kingdom
+CUST-0135,Emma Johnson,Consumer,Australia
+CUST-0136,Lukas Brown,Consumer,Canada
+CUST-0137,Alex Smith,Consumer,Germany
+CUST-0138,Taylor Davis,SMB,Australia
+CUST-0139,Avery Wilson,Enterprise,Germany
+CUST-0140,Ethan Miller,Consumer,Canada
+CUST-0141,Alex Johnson,SMB,Canada
+CUST-0142,Riley Wilson,Enterprise,Germany
+CUST-0143,Jordan Khandelwal,Consumer,USA
+CUST-0144,Olivia Williams,SMB,Australia
+CUST-0145,Emma Davis,Enterprise,Australia
+CUST-0146,Noah Khandelwal,SMB,Canada
+CUST-0147,Ethan Davis,SMB,Canada
+CUST-0148,Rahul Khandelwal,SMB,Australia
+CUST-0149,Priya Jones,SMB,USA
+CUST-0150,Lukas Brown,SMB,United Kingdom
+CUST-0151,Emma Khandelwal,Consumer,Canada
+CUST-0152,Casey Brown,SMB,Australia
+CUST-0153,Casey Wilson,Consumer,USA
+CUST-0154,Noah Miller,SMB,India
+CUST-0155,Olivia Miller,Consumer,Canada
+CUST-0156,Noah Miller,Enterprise,Australia
+CUST-0157,Alex Patel,SMB,Germany
+CUST-0158,Alex Garcia,SMB,Germany
+CUST-0159,Noah Khandelwal,Enterprise,Australia
+CUST-0160,Priya Davis,Consumer,United Kingdom
+CUST-0161,Noah Davis,Consumer,Germany
+CUST-0162,Emma Schneider,Enterprise,Germany
+CUST-0163,Riley Davis,Consumer,India
+CUST-0164,Alex Miller,Enterprise,India
+CUST-0165,Alex Johnson,Enterprise,Germany
+CUST-0166,Casey Davis,Consumer,USA
+CUST-0167,Rahul Miller,SMB,Canada
+CUST-0168,Olivia Garcia,SMB,Germany
+CUST-0169,Rahul Miller,SMB,USA
+CUST-0170,Ethan Smith,Enterprise,India
+CUST-0171,Jordan Garcia,Consumer,Australia
+CUST-0172,Taylor Schneider,Consumer,USA
+CUST-0173,Priya Brown,Consumer,India
+CUST-0174,Casey Brown,Consumer,Germany
+CUST-0175,Morgan Patel,Consumer,Germany
+CUST-0176,Rahul Garcia,Consumer,India
+CUST-0177,Morgan Williams,SMB,USA
+CUST-0178,Alex Jones,Enterprise,Australia
+CUST-0179,Sophia Miller,Enterprise,Canada
+CUST-0180,Taylor Patel,Enterprise,Australia
+CUST-0181,Priya Johnson,Enterprise,United Kingdom
+CUST-0182,Morgan Patel,Consumer,United Kingdom
+CUST-0183,Noah Schneider,SMB,USA
+CUST-0184,Emma Smith,SMB,Germany
+CUST-0185,Morgan Miller,SMB,Australia
+CUST-0186,Olivia Wilson,Consumer,Germany
+CUST-0187,Riley Wilson,Enterprise,Australia
+CUST-0188,Rahul Patel,Enterprise,Germany
+CUST-0189,Olivia Miller,Enterprise,India
+CUST-0190,Rahul Garcia,Consumer,USA
+CUST-0191,Rahul Davis,Consumer,Germany
+CUST-0192,Sophia Garcia,Consumer,Germany
+CUST-0193,Emma Williams,SMB,Canada
+CUST-0194,Liam Jones,SMB,United Kingdom
+CUST-0195,Rahul Khandelwal,Consumer,India
+CUST-0196,Avery Johnson,Consumer,Australia
+CUST-0197,Noah Davis,Enterprise,Canada
+CUST-0198,Ethan Schneider,Enterprise,Germany
+CUST-0199,Olivia Smith,Consumer,United Kingdom
+CUST-0200,Priya Miller,Enterprise,Canada
