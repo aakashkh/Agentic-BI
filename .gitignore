@@ -1,0 +1,23 @@
+# Visual Studio Code
+.vscode/
+
+# Power BI / Microsoft Fabric PBIP
+**/.pbi/localSettings.json
+**/.pbi/cache.abf
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.env
+.env
+venv/
+.venv/
+env/
+ENV/
+
+# Operating System Files
+.DS_Store
+Thumbs.db
+desktop.ini
+*.tmp
