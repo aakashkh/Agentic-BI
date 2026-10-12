@@ -606,6 +606,27 @@ Thumbs.db</code></pre>
           <p class="text-xs text-[var(--muted-foreground)]">Generate TMDL `///` descriptions and compile a Markdown Data Dictionary.</p>
         </div>
       </div>
+
+      <div class="rounded-xl border border-[var(--border)] overflow-hidden bg-[var(--card)] p-3 flex flex-col md:flex-row items-center gap-4 mt-3">
+        <div class="relative group cursor-pointer w-full md:w-64 h-36 rounded-lg overflow-hidden border border-[var(--border)] shrink-0" onclick="openLightbox('images/mcp_live_demo_screencast.jpg', 'Live Demo Screencast: VS Code MCP + Power BI Desktop Model View')">
+          <img src="images/mcp_live_demo_screencast.jpg" alt="Live Demo Screencast" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+          <div class="absolute inset-0 bg-black/40 group-hover:bg-black/10 flex items-center justify-center transition-colors">
+            <span class="text-xs bg-black/70 px-2.5 py-1 rounded text-white font-mono">🔍 Click to Expand</span>
+          </div>
+        </div>
+        <div class="flex-1 space-y-2">
+          <div class="text-xs font-bold text-blue-400 flex items-center gap-2"><span>🎥</span> LIVE DEMO SCREENCAST</div>
+          <p class="text-xs text-[var(--muted-foreground)]">Watch the split-screen workflow: The AI Assistant accepts natural language prompts, calls <code>powerbi_modeling:create_measure</code> via MCP, updates <code>SalesMetrics.tmdl</code> with clean Git diffs, and Power BI Desktop Model View synchronizes in real time.</p>
+          <div class="flex gap-2 pt-1">
+            <a href="demo-screencast.html" target="_blank" class="px-3 py-1.5 bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs rounded-lg transition-all shadow-md inline-flex items-center gap-2">
+              ▶ Launch Interactive Player
+            </a>
+            <button onclick="openLightbox('images/mcp_live_demo_screencast.jpg', 'Live Demo Screencast: VS Code MCP + Power BI Desktop Model View')" class="px-3 py-1.5 bg-[var(--surface)] hover:bg-[var(--border)] text-xs font-semibold rounded-lg border border-[var(--border)]">
+              🔍 View High-Res Snapshot
+            </button>
+          </div>
+        </div>
+      </div>
     </section>
 
     <!-- SLIDE 12: HEADLESS BI -->

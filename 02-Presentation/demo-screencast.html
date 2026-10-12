@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Agentic BI — Live MCP Screencast & Interactive Demo</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0d1117;
+      --surface: #161b22;
+      --surface-border: #30363d;
+      --text: #c9d1d9;
+      --text-bright: #f0f6fc;
+      --accent: #58a6ff;
+      --accent-pbi: #f2c811;
+      --green: #2ea043;
+      --green-bg: rgba(46, 160, 67, 0.15);
+      --purple: #bc8cff;
+      --yellow: #d29922;
+      --code-bg: #0b0e14;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    header {
+      text-align: center;
+      max-width: 900px;
+      margin-bottom: 24px;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 4px 12px;
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      border-radius: 999px;
+      background: rgba(242, 200, 17, 0.15);
+      color: var(--accent-pbi);
+      border: 1px solid rgba(242, 200, 17, 0.3);
+      margin-bottom: 12px;
+    }
+
+    h1 {
+      color: var(--text-bright);
+      font-size: 28px;
+      font-weight: 800;
+      margin-bottom: 8px;
+    }
+
+    p.subtitle {
+      color: #8b949e;
+      font-size: 15px;
+    }
+
+    /* Container for the screencast */
+    .screencast-container {
+      width: 100%;
+      max-width: 1200px;
+      background: var(--surface);
+      border: 1px solid var(--surface-border);
+      border-radius: 12px;
+      box-shadow: 0 16px 40px rgba(0,0,0,0.5);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Screencast Top Bar */
+    .window-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 18px;
+      background: #090d13;
+      border-bottom: 1px solid var(--surface-border);
+    }
+
+    .window-dots {
+      display: flex;
+      gap: 8px;
+    }
+
+    .dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+    }
+    .dot-red { background: #ff5f56; }
+    .dot-yellow { background: #ffbd2e; }
+    .dot-green { background: #27c93f; }
+
+    .window-title {
+      font-size: 13px;
+      font-weight: 600;
+      color: #8b949e;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* Split Screen Workstation */
+    .workspace-split {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      min-height: 580px;
+      background: var(--bg);
+    }
+
+    /* Left Pane: VS Code & MCP AI Chat */
+    .left-pane {
+      border-right: 1px solid var(--surface-border);
+      display: flex;
+      flex-direction: column;
+      background: #0d1117;
+    }
+
+    .pane-tab-bar {
+      display: flex;
+      background: #161b22;
+      border-bottom: 1px solid var(--surface-border);
+      font-size: 12px;
+    }
+
+    .pane-tab {
+      padding: 8px 16px;
+      border-right: 1px solid var(--surface-border);
+      color: #8b949e;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .pane-tab.active {
+      background: #0d1117;
+      color: var(--text-bright);
+      border-top: 2px solid var(--accent);
+    }
+
+    /* Chat & MCP logs area */
+    .chat-section {
+      padding: 16px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      overflow-y: auto;
+      font-size: 13px;
+    }
+
+    .chat-bubble {
+      padding: 12px 14px;
+      border-radius: 8px;
+      max-width: 95%;
+      line-height: 1.5;
+    }
+
+    .bubble-user {
+      align-self: flex-end;
+      background: #1f6feb;
+      color: #ffffff;
+      border-bottom-right-radius: 2px;
+    }
+
+    .bubble-agent {
+      align-self: flex-start;
+      background: #21262d;
+      border: 1px solid var(--surface-border);
+      color: var(--text-bright);
+      border-bottom-left-radius: 2px;
+      width: 100%;
+    }
+
+    .mcp-call-box {
+      background: #0b0e14;
+      border: 1px solid #388bfd44;
+      border-left: 3px solid var(--accent);
+      border-radius: 6px;
+      padding: 10px 12px;
+      margin: 8px 0;
+      font-family: 'Fira Code', monospace;
+      font-size: 11px;
+    }
+
+    .mcp-title {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      color: var(--accent);
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+
+    .status-pill {
+      font-size: 10px;
+      padding: 2px 6px;
+      border-radius: 4px;
+      background: rgba(46, 160, 67, 0.2);
+      color: var(--green);
+      font-weight: bold;
+    }
+
+    /* Right Pane: Code Editor + Power BI Model View */
+    .right-pane {
+      display: flex;
+      flex-direction: column;
+      background: #0b0e14;
+    }
+
+    .editor-section {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      border-bottom: 1px solid var(--surface-border);
+    }
+
+    .code-view {
+      padding: 16px;
+      font-family: 'Fira Code', monospace;
+      font-size: 12px;
+      line-height: 1.6;
+      color: #c9d1d9;
+      overflow-x: auto;
+      flex: 1;
+    }
+
+    .tmdl-kw { color: #ff7b72; font-weight: 600; }
+    .tmdl-str { color: #a5d6ff; }
+    .tmdl-fn { color: #d2a8ff; }
+    .tmdl-comment { color: #7ee787; font-style: italic; }
+    .diff-add {
+      background: var(--green-bg);
+      border-left: 3px solid var(--green);
+      display: block;
+      margin: 0 -16px;
+      padding: 2px 16px;
+    }
+
+    /* Power BI Live Sync Visualizer Box */
+    .pbi-preview {
+      height: 240px;
+      background: #141820;
+      border-top: 1px solid var(--surface-border);
+      padding: 14px 18px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .pbi-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 12px;
+    }
+
+    .pbi-tag {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--accent-pbi);
+    }
+
+    .model-cards {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      flex: 1;
+    }
+
+    .model-card {
+      background: #1c2128;
+      border: 1px solid var(--surface-border);
+      border-radius: 6px;
+      padding: 10px;
+      font-size: 11px;
+    }
+
+    .model-card-title {
+      font-weight: 700;
+      color: var(--text-bright);
+      border-bottom: 1px solid #30363d;
+      padding-bottom: 4px;
+      margin-bottom: 6px;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .measure-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 3px 0;
+      color: #8b949e;
+    }
+
+    .measure-item.new-item {
+      color: var(--accent-pbi);
+      font-weight: 600;
+      animation: pulseHighlight 2s infinite;
+    }
+
+    @keyframes pulseHighlight {
+      0% { opacity: 0.6; }
+      50% { opacity: 1; }
+      100% { opacity: 0.6; }
+    }
+
+    /* Controls Footer */
+    .controls-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 20px;
+      background: #090d13;
+      border-top: 1px solid var(--surface-border);
+    }
+
+    .timeline-bar {
+      flex: 1;
+      max-width: 500px;
+      height: 6px;
+      background: #21262d;
+      border-radius: 3px;
+      position: relative;
+      margin: 0 16px;
+      cursor: pointer;
+    }
+
+    .timeline-fill {
+      height: 100%;
+      background: var(--accent);
+      border-radius: 3px;
+      width: 0%;
+      transition: width 0.3s ease;
+    }
+
+    .btn-group {
+      display: flex;
+      gap: 10px;
+    }
+
+    button {
+      background: #21262d;
+      color: var(--text-bright);
+      border: 1px solid var(--surface-border);
+      padding: 6px 14px;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s;
+    }
+
+    button:hover {
+      background: #30363d;
+      border-color: #8b949e;
+    }
+
+    button.btn-primary {
+      background: #238636;
+      border-color: #2ea043;
+      color: #fff;
+    }
+    button.btn-primary:hover {
+      background: #2ea043;
+    }
+
+    .step-indicator {
+      font-size: 13px;
+      color: #8b949e;
+      font-weight: 500;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="badge">Live Demonstration Screencast</div>
+    <h1>Agentic BI in Action: Headless Modeling via Power BI MCP</h1>
+    <p class="subtitle">Watch an AI Assistant inspect tables, generate DAX, document business logic in TMDL, and update Power BI Desktop without clicking the GUI.</p>
+  </header>
+
+  <div class="screencast-container">
+    <!-- Window Bar -->
+    <div class="window-header">
+      <div class="window-dots">
+        <div class="dot dot-red"></div>
+        <div class="dot dot-yellow"></div>
+        <div class="dot dot-green"></div>
+      </div>
+      <div class="window-title">
+        <span>⚡ Live Session: VS Code + Power BI Modeling MCP ➔ RetailSales.pbip</span>
+      </div>
+      <div class="step-indicator" id="stepIndicator">Step 1 of 4: Natural Language Request</div>
+    </div>
+
+    <!-- Workspace Split -->
+    <div class="workspace-split">
+      <!-- Left Pane: AI Chat & MCP Protocol -->
+      <div class="left-pane">
+        <div class="pane-tab-bar">
+          <div class="pane-tab active">💬 Copilot AI Chat (MCP Plugin)</div>
+          <div class="pane-tab">🔌 Power BI MCP Protocol Log</div>
+        </div>
+
+        <div class="chat-section" id="chatSection">
+          <!-- Step 1: User Request -->
+          <div class="chat-bubble bubble-user">
+            "Create a YoY Sales Growth % measure in the SalesMetrics table using MCP tools. Add triple-slash documentation and format as percentage."
+          </div>
+
+          <!-- Step 2: Agent Tool Invocation -->
+          <div class="chat-bubble bubble-agent" id="step2Bubble" style="display: none;">
+            <div>I'll inspect the model and create the measure for you.</div>
+            
+            <div class="mcp-call-box">
+              <div class="mcp-title">
+                <span>🔧 powerbi_modeling:get_table_schema</span>
+                <span class="status-pill">SUCCESS</span>
+              </div>
+              <div>Table: "SalesMetrics"<br>Verified base measure: [Total Sales] in FactSales</div>
+            </div>
+
+            <div class="mcp-call-box">
+              <div class="mcp-title">
+                <span>⚡ powerbi_modeling:create_measure</span>
+                <span class="status-pill">EXECUTED</span>
+              </div>
+              <div>Target: definition/tables/SalesMetrics.tmdl<br>Measure: [YoY Sales Growth %]</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Pane: Code Diff & Desktop Preview -->
+      <div class="right-pane">
+        <div class="editor-section">
+          <div class="pane-tab-bar">
+            <div class="pane-tab active">📄 SalesMetrics.tmdl (Git Diff)</div>
+          </div>
+
+          <div class="code-view" id="codeEditor">
+            <div><span class="tmdl-kw">table</span> SalesMetrics</div>
+            <div>&nbsp;&nbsp;<span class="tmdl-kw">lineageTag</span>: 4a9f8b21-6c12-4211</div>
+            <div></div>
+            <div id="diffCode" style="display: none;">
+              <div class="diff-add"><span class="tmdl-comment">/// [YoY Sales Growth %] calculates year-over-year percentage growth in Total Sales.</span></div>
+              <div class="diff-add"><span class="tmdl-comment">/// Target display folder: Growth Metrics</span></div>
+              <div class="diff-add"><span class="tmdl-kw">measure</span> <span class="tmdl-str">'YoY Sales Growth %'</span> =</div>
+              <div class="diff-add">&nbsp;&nbsp;<span class="tmdl-kw">VAR</span> CurrentSales = [Total Sales]</div>
+              <div class="diff-add">&nbsp;&nbsp;<span class="tmdl-kw">VAR</span> PriorSales = <span class="tmdl-fn">CALCULATE</span>([Total Sales], <span class="tmdl-fn">SAMEPERIODLASTYEAR</span>('DimDate'[Date]))</div>
+              <div class="diff-add">&nbsp;&nbsp;<span class="tmdl-kw">RETURN</span> <span class="tmdl-fn">DIVIDE</span>(CurrentSales - PriorSales, PriorSales, 0)</div>
+              <div class="diff-add">&nbsp;&nbsp;<span class="tmdl-kw">formatString</span>: <span class="tmdl-str">"0.0%"</span></div>
+              <div class="diff-add">&nbsp;&nbsp;<span class="tmdl-kw">displayFolder</span>: <span class="tmdl-str">"Growth Metrics"</span></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Power BI Live Sync Visualizer -->
+        <div class="pbi-preview">
+          <div class="pbi-header">
+            <div class="pbi-tag">
+              <span>📊 Power BI Desktop Model View</span>
+            </div>
+            <span style="font-size: 11px; color: #8b949e;" id="syncStatus">🔄 Syncing with local TMDL...</span>
+          </div>
+
+          <div class="model-cards">
+            <div class="model-card">
+              <div class="model-card-title">
+                <span>FactSales</span>
+                <span>(Fact)</span>
+              </div>
+              <div class="measure-item">📏 [Total Sales]</div>
+              <div class="measure-item">📏 [Total Quantity]</div>
+              <div class="measure-item">📏 [Total Profit]</div>
+            </div>
+
+            <div class="model-card">
+              <div class="model-card-title">
+                <span>SalesMetrics</span>
+                <span>(Measures)</span>
+              </div>
+              <div class="measure-item">📏 [Gross Margin %]</div>
+              <div class="measure-item" id="pbiNewMeasure" style="display: none;">
+                <span class="new-item">✨ 📏 [YoY Sales Growth %]</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Controls -->
+    <div class="controls-footer">
+      <div class="btn-group">
+        <button class="btn-primary" id="playBtn" onclick="togglePlay()">▶ Play Demo</button>
+        <button onclick="resetDemo()">↺ Reset</button>
+      </div>
+
+      <div class="timeline-bar" onclick="seek(event)">
+        <div class="timeline-fill" id="timelineFill"></div>
+      </div>
+
+      <div class="btn-group">
+        <button onclick="stepPrev()">◀ Previous</button>
+        <button onclick="stepNext()">Next ▶</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let currentStep = 1;
+    let isPlaying = false;
+    let timer = null;
+
+    const steps = [
+      {
+        step: 1,
+        title: "Step 1 of 4: Natural Language Request",
+        action: () => {
+          document.getElementById('step2Bubble').style.display = 'none';
+          document.getElementById('diffCode').style.display = 'none';
+          document.getElementById('pbiNewMeasure').style.display = 'none';
+          document.getElementById('syncStatus').innerText = '🔄 Listening for MCP events...';
+          document.getElementById('timelineFill').style.width = '25%';
+        }
+      },
+      {
+        step: 2,
+        title: "Step 2 of 4: Agent Executes MCP Tools",
+        action: () => {
+          document.getElementById('step2Bubble').style.display = 'block';
+          document.getElementById('diffCode').style.display = 'none';
+          document.getElementById('pbiNewMeasure').style.display = 'none';
+          document.getElementById('syncStatus').innerText = '⏳ Executing powerbi_modeling:create_measure...';
+          document.getElementById('timelineFill').style.width = '50%';
+        }
+      },
+      {
+        step: 3,
+        title: "Step 3 of 4: TMDL File Mutation (Git Diff)",
+        action: () => {
+          document.getElementById('step2Bubble').style.display = 'block';
+          document.getElementById('diffCode').style.display = 'block';
+          document.getElementById('pbiNewMeasure').style.display = 'none';
+          document.getElementById('syncStatus').innerText = '💾 TMDL File written. Notifying Power BI Desktop...';
+          document.getElementById('timelineFill').style.width = '75%';
+        }
+      },
+      {
+        step: 4,
+        title: "Step 4 of 4: Power BI Live Model Update",
+        action: () => {
+          document.getElementById('step2Bubble').style.display = 'block';
+          document.getElementById('diffCode').style.display = 'block';
+          document.getElementById('pbiNewMeasure').style.display = 'flex';
+          document.getElementById('syncStatus').innerText = '✅ Model updated in Power BI Desktop!';
+          document.getElementById('timelineFill').style.width = '100%';
+        }
+      }
+    ];
+
+    function renderStep() {
+      const s = steps[currentStep - 1];
+      document.getElementById('stepIndicator').innerText = s.title;
+      s.action();
+    }
+
+    function togglePlay() {
+      if (isPlaying) {
+        clearInterval(timer);
+        isPlaying = false;
+        document.getElementById('playBtn').innerHTML = '▶ Play Demo';
+      } else {
+        isPlaying = true;
+        document.getElementById('playBtn').innerHTML = '⏸ Pause Demo';
+        timer = setInterval(() => {
+          if (currentStep < 4) {
+            currentStep++;
+            renderStep();
+          } else {
+            clearInterval(timer);
+            isPlaying = false;
+            document.getElementById('playBtn').innerHTML = '▶ Replay Demo';
+          }
+        }, 2200);
+      }
+    }
+
+    function resetDemo() {
+      clearInterval(timer);
+      isPlaying = false;
+      document.getElementById('playBtn').innerHTML = '▶ Play Demo';
+      currentStep = 1;
+      renderStep();
+    }
+
+    function stepNext() {
+      if (currentStep < 4) {
+        currentStep++;
+        renderStep();
+      }
+    }
+
+    function stepPrev() {
+      if (currentStep > 1) {
+        currentStep--;
+        renderStep();
+      }
+    }
+
+    // Initialize
+    renderStep();
+  </script>
+</body>
+</html>

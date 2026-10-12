@@ -1,6 +1,6 @@
-# Key Concepts Deep-Dive: PBIP, Schemas, `.cache`, & Azure DevOps CI/CD
+# Key Concepts Deep-Dive: PBIP Hierarchy, JSON Schemas & .cache Security
 
-This reference guide provides deep technical specifications on PBIP file structures, JSON schemas, security rules for `.cache`, and enterprise CI/CD integration with Azure DevOps and Microsoft Fabric.
+This reference guide provides deep technical specifications on PBIP file structures, JSON schemas, security rules for `.cache`, and the dual-tier enterprise CI/CD integration model.
 
 ---
 
@@ -69,57 +69,12 @@ localSettings.json
 
 ---
 
-## 3. Azure DevOps CI/CD & Fabric Deployment Pipelines
+## 3. Enterprise CI/CD & Fabric Deployment Pipelines
 
-```
- ┌────────────────────────────────────────────────────────┐
- │ 1. Developer / AI Agent pushes TMDL to Azure Repos     │
- │    `feature/add-time-intelligence`                     │
- └──────────────────────────┬─────────────────────────────┘
-                            │ (Pull Request to `main`)
-                            ▼
- ┌────────────────────────────────────────────────────────┐
- │ 2. Azure Pipelines (`azure-pipelines.yml`) Runs:       │
- │    • TMDL Syntax Check via @microsoft/powerbi-modeling │
- │    • Best Practice Analyzer (BPA) via Tabular Editor   │
- └──────────────────────────┬─────────────────────────────┘
-                            │ (Merged to `main`)
-                            ▼
- ┌────────────────────────────────────────────────────────┐
- │ 3. Fabric Git Integration syncs `main` branch directly │
- │    with Development Workspace                          │
- └──────────────────────────┬─────────────────────────────┘
-                            │ (Fabric Deployment Pipeline)
-                            ▼
- ┌────────────────────────────────────────────────────────┐
- │ 4. Fabric Deployment Pipeline Promotes:                │
- │    Dev Workspace ➔ Test Workspace ➔ Prod Workspace     │
- └────────────────────────────────────────────────────────┘
-```
+The CI/CD lifecycle of PBIP artifacts operates on two complementary tiers:
+1. **Artifact-Level Git CI/CD**: Independent branching, automated TMDL syntax validation, and Tabular Editor Best Practice Analyzer (BPA) checks for `.Dataset` and `.Report` folders.
+2. **Workspace-Level Deployment Pipelines**: Fabric-governed promotion across Development, Test, and Production workspaces with dataset parameterization rules.
 
-### Sample `azure-pipelines.yml`
-
-```yaml
-trigger:
-  branches:
-    include:
-      - main
-
-pool:
-  vmImage: 'ubuntu-latest'
-
-steps:
-- task: NodeTool@0
-  inputs:
-    versionSpec: '18.x'
-  displayName: 'Install Node.js'
-
-- script: |
-    npx -y @microsoft/powerbi-modeling-mcp --validate ./03-Demo-Project/RetailSales.pbip
-  displayName: 'Validate TMDL Syntax via Microsoft MCP'
-
-- script: |
-    curl -sSL https://raw.githubusercontent.com/TabularEditor/TabularEditor/master/BPA/BPA-Rules.json -o bpa-rules.json
-    echo "Running Tabular Editor BPA check on TMDL definitions..."
-  displayName: 'Run Best Practice Analyzer (BPA)'
-```
+> 📖 **Deep-Dive Guides**:
+> * 🏗️ **Full CI/CD & Deployment Architecture**: See [`PowerBI-CI-CD-and-Deployment-Pipelines-Architecture.md`](PowerBI-CI-CD-and-Deployment-Pipelines-Architecture.md) for the definitive guide on artifact separation and deployment pipeline rules.
+> * 🛡️ **Automated PR Review Gate**: See [`../05-Prompts-and-Workflows/PR-Review-Gate.md`](../05-Prompts-and-Workflows/PR-Review-Gate.md) for the complete GitHub Actions / Azure DevOps YAML workflow and code review checklist.
